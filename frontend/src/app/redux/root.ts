@@ -28,13 +28,28 @@ const TEST_APP_STATE: AppState = {
     dashboards: [{
         id: "abc",
         name: "Alex",
-        widgets: {},
+        editting: false,
+        widgets: { 
+            "w1": {
+                type: "line",
+                position: {
+                    top: 2,
+                    left: 2,
+                    width: 20,
+                    height: 20
+                },
+                config: {
+                    "name": "widget1"
+                }
+            }
+        },
         filter: null,
         selected: true
     },
     {
         id: "abc2",
         name: "ryan",
+        editting: false,
         widgets: {},
         filter: null,
         selected: false
@@ -42,6 +57,7 @@ const TEST_APP_STATE: AppState = {
     {
         id: "abc3",
         name: "cow",
+        editting: false,
         widgets: {},
         filter: null,
         selected: false

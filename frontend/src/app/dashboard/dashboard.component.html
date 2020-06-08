@@ -1,1 +1,18 @@
-<p>dashboard works!</p>
+<div *ngIf="dashboard">
+    <app-dashboard-header [dashboard]="dashboard"></app-dashboard-header>
+    <mat-sidenav-container class="dashboard-sidenav-container">
+        <mat-sidenav #configsnav class="config-sidenav"
+        position="end"
+        mode="side"
+        [opened]="dashboard.configWidgetID">
+            <app-widget-config 
+            *ngIf="dashboard.configWidgetID"
+            [dashboardID]="dashboard.id"
+            [widgetID]="dashboard.configWidgetID"
+            [widget]="dashboard.widgets[dashboard.configWidgetID]"></app-widget-config>
+        </mat-sidenav>
+        <mat-sidenav-content class="dashboard-sidenav-content">
+            <app-dashboard-body class="dashboard-body" [dashboard]="dashboard"></app-dashboard-body>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

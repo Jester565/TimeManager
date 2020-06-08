@@ -1,0 +1,14 @@
+.dashboard-body {
+    height: 100%;
+}
+
+.dashboard-sidenav-container {
+    flex: 1;
+    height: 100%;
+}
+
+.dashboard-sidenav-content {
+    height: 80vh;
+    width: calc(100% - 20px);
+    margin-left: 10px;
+}

@@ -9,8 +9,8 @@
     <mat-sidenav #snav class="app-sidenav">
       <app-dashboard-list class="dashboard-list"></app-dashboard-list>
     </mat-sidenav>
-    <mat-sidenav-content>
-      <div>Lit</div>
+    <mat-sidenav-content class="app-sidenav-content">
+      <app-dashboard [dashboard]="selectedDashboard"></app-dashboard>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

@@ -27,13 +27,21 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { ConfirmCancelDialog } from './common/confirm-cancel-dialog';
+import { DashboardBodyComponent } from './dashboard-body/dashboard-body.component';
+import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.component';
+import { WidgetComponent } from './widget/widget.component';
+import { WidgetConfigComponent } from './widget-config/widget-config.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardListComponent,
     DashboardComponent,
-    ConfirmCancelDialog
+    ConfirmCancelDialog,
+    DashboardBodyComponent,
+    DashboardHeaderComponent,
+    WidgetComponent,
+    WidgetConfigComponent
   ],
   imports: [
     BrowserModule,

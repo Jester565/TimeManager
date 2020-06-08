@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Dashboard } from '../redux/dashboards';
+import { NgRedux } from '@angular-redux/store';
+import { AppState } from '../redux/root';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,10 +9,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  @Input() dashboard: Dashboard;
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }
