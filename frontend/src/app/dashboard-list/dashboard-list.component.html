@@ -1,5 +1,32 @@
 <div>
-    <div cdkDropList class="dashboard-list" (cdkDropListDropped)="drop($event)">
-        <div class="dashboard-box" *ngFor="let dashboard of dashboards | async" cdkDrag>{{dashboard.name}}</div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="mat-body-1 title">Dashboards</div>
+        <button mat-icon-button color="primary" (click)="onEditToggle()">
+            <mat-icon>{{ editting? 'done': 'edit' }}</mat-icon>
+        </button>
+    </div>
+    <div *ngIf="editting" cdkDropList class="dashboard-list" (cdkDropListDropped)="drop($event)">
+        <div fxLayout="row" fxLayoutAlign="space-between center" 
+        class="dashboard-box dashboard-box-draggable"
+        [ngClass]="{'selected-dashboard': dashboard.selected}"
+        *ngFor="let dashboard of dashboards | async" cdkDrag>
+            <div class="mat-body-2 dashboard-name">{{dashboard.name}}</div>
+            <button mat-icon-button color="warn" (click)="onDashboardDelete(dashboard)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div *ngIf="!editting" class="dashboard-list">
+        <div class="dashboard-box"
+        [ngClass]="{'selected-dashboard': dashboard.selected}"
+        *ngFor="let dashboard of dashboards | async"
+        (click)="onDashboardSelect(dashboard.id)">
+            <div class="mat-body-2 dashboard-name">{{dashboard.name}}</div>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" class="add-container">
+        <button mat-mini-fab color="primary" (click)="onAddDashboard()">
+            <mat-icon>add</mat-icon>
+        </button>
     </div>
 </div>

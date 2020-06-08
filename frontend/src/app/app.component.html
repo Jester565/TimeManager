@@ -1,3 +1,16 @@
-<div>
-  <app-dashboard-list></app-dashboard-list>
+<div class="app-container">
+  <mat-toolbar color="primary" class="app-toolbar">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="app-name">Time Manager</h1>
+  </mat-toolbar>
+  <mat-sidenav-container class="app-sidenav-container">
+    <mat-sidenav #snav class="app-sidenav">
+      <app-dashboard-list class="dashboard-list"></app-dashboard-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div>Lit</div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

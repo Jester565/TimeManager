@@ -29,19 +29,22 @@ const TEST_APP_STATE: AppState = {
         id: "abc",
         name: "Alex",
         widgets: {},
-        filter: null
+        filter: null,
+        selected: true
     },
     {
         id: "abc2",
         name: "ryan",
         widgets: {},
-        filter: null
+        filter: null,
+        selected: false
     },
     {
         id: "abc3",
         name: "cow",
         widgets: {},
-        filter: null
+        filter: null,
+        selected: false
     }]
 }
 

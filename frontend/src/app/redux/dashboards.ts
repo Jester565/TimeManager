@@ -11,6 +11,7 @@ const MOVE = 'timemanager/dashboards/move';
 const ADD_WIDGET = 'timemanager/dashboards/add_widget';
 const UPDATE_WIDGET = 'timemanager/dashboards/update_widget';
 const REMOVE_WIDGET = 'timemanager/dashboards/remove_widget';
+const SELECT = 'timemanager/dashboards/select';
 
 interface Position {
     x: number;
@@ -32,6 +33,7 @@ export interface Dashboard {
     id: string;
     name: string;
     filter: Filter;
+    selected: boolean;
     widgets: { [key: string]: Widget };
 }
 
@@ -95,6 +97,12 @@ const removeWidgetReducer = (draft: Dashboard[], action: { dashboardID: string, 
     delete dashboard.widgets[action.widgetID];
 }
 
+const selectDashboardReducer = (draft: Dashboard[], action: { dashboardID: string }) => {
+    for (let dashboard of draft) {
+        dashboard.selected = (dashboard.id == action.dashboardID);
+    }
+}
+
 export default createReducer([], {
     [ADD]: addDashboardReducer,
     [SET_NAME]: setNameReducer,
@@ -104,7 +112,8 @@ export default createReducer([], {
     [MOVE]: moveDashboardReducer,
     [ADD_WIDGET]: addWidgetReducer,
     [UPDATE_WIDGET]: updateWidgetReducer,
-    [REMOVE_WIDGET]: removeWidgetReducer
+    [REMOVE_WIDGET]: removeWidgetReducer,
+    [SELECT]: selectDashboardReducer
 });
 
 export function addDashboard(dashboard: Dashboard) {
@@ -176,5 +185,12 @@ export function removeWidget(dashboardID: string, widgetID: string) {
         type: REMOVE_WIDGET,
         dashboardID,
         widgetID
+    }
+}
+
+export function selectDashboard(dashboardID: string) {
+    return {
+        type: SELECT,
+        dashboardID
     }
 }
