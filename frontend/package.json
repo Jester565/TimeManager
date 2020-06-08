@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-redux/store": "^10.0.0",
     "@angular/animations": "~9.1.9",
     "@angular/cdk": "^9.2.4",
     "@angular/common": "~9.1.9",
@@ -23,9 +24,17 @@
     "@angular/router": "~9.1.9",
     "@angular/service-worker": "~9.1.9",
     "@antv/g2": "^4.0.9",
+    "immer": "^6.0.9",
+    "lodash": "^4.17.15",
     "ngx-widget-grid": "^9.0.0",
+    "redux": "^4.0.1",
+    "redux-devtools": "^3.5.0",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-observable": "^1.2.0",
+    "redux-observable-es6-compat": "^1.2.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
+    "uuid": "^8.1.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

@@ -1,0 +1,5 @@
+<div>
+    <div cdkDropList class="dashboard-list" (cdkDropListDropped)="drop($event)">
+        <div class="dashboard-box" *ngFor="let dashboard of dashboards | async" cdkDrag>{{dashboard.name}}</div>
+    </div>
+</div>
