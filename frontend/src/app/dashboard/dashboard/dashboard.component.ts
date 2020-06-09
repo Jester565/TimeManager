@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Dashboard } from '../../redux/dashboards';
+import { Dashboard, setConfigWidgetID } from '../../redux/dashboards';
+import { NgRedux } from '@angular-redux/store';
+import { AppState } from 'src/app/redux/root';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,8 +11,12 @@ import { Dashboard } from '../../redux/dashboards';
 export class DashboardComponent implements OnInit {
   @Input() dashboard: Dashboard;
 
-  constructor() { }
+  constructor(private ngRedux: NgRedux<AppState>) { }
 
   ngOnInit(): void {
+  }
+
+  onConfigDone() {
+    this.ngRedux.dispatch(setConfigWidgetID(this.dashboard.id, null));
   }
 }

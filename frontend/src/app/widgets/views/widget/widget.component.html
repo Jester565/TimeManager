@@ -1,1 +1,15 @@
-<p>widget works!</p>
+<div class="container">
+    <div class="item-buttons" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-icon-button (click)="onEdit()">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <div [@openClose]="editting ? 'open' : 'closed'">
+            <button mat-icon-button class="remove-button" (click)="onRemove()">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="gridster-item-content">
+        <ng-template app-widget-directive></ng-template>
+    </div>
+</div>

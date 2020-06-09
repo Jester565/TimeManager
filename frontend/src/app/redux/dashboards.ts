@@ -242,6 +242,7 @@ export function setEditting(dashboardID: string, editting: boolean) {
 export function setConfigWidgetID(dashboardID: string, widgetID: string) {
     return {
         type: SET_CONFIG_WIDGET,
+        dashboardID,
         widgetID
     }
 }

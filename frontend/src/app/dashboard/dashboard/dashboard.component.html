@@ -5,11 +5,18 @@
         position="end"
         mode="side"
         [opened]="dashboard.configWidgetID">
-            <app-widget-config 
-            *ngIf="dashboard.configWidgetID"
-            [dashboardID]="dashboard.id"
-            [widgetID]="dashboard.configWidgetID"
-            [widget]="dashboard.widgets[dashboard.configWidgetID]"></app-widget-config>
+            <div class="config-container" fxLayout="column" fxLayoutAlign="start center">
+                <app-widget-config 
+                class="config"
+                *ngIf="dashboard.configWidgetID"
+                [dashboardID]="dashboard.id"
+                [widgetID]="dashboard.configWidgetID"
+                [widget]="dashboard.widgets[dashboard.configWidgetID]"></app-widget-config>
+                <button mat-raised-button color="primary" class="config-done-button"
+                (click)="onConfigDone()">
+                    <mat-icon>done</mat-icon>
+                </button>
+            </div>
         </mat-sidenav>
         <mat-sidenav-content class="dashboard-sidenav-content">
             <app-dashboard-body class="dashboard-body" [dashboard]="dashboard"></app-dashboard-body>

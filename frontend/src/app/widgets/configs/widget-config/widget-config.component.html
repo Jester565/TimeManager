@@ -1,1 +1,15 @@
-<p>widget-config works!</p>
+<div>
+    <mat-form-field>
+        <mat-label>Widget Type</mat-label>
+        <mat-select [value]="widgetConfigType" (selectionChange)="setWidgetConfigType($event.value)">
+            <mat-option 
+            *ngFor="let wcType of widgetConfigTypes" 
+            [value]="wcType">
+                {{wcType.Name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div>
+        <ng-template app-widget-config-directive></ng-template>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+.gridster {
+    background: #252525;
+}
+
+:host /deep/ gridster .gridster-column {
+    border-left: 1px solid gray !important;
+    border-right: 1px solid gray  !important;
+}
+
+:host /deep/ gridster .gridster-row {
+    border-top: 1px solid gray  !important;
+    border-bottom: 1px solid gray  !important;
+}

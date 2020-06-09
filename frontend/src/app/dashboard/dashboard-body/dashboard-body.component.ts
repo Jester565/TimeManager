@@ -20,10 +20,8 @@ interface DisplayWidget {
 export class DashboardBodyComponent implements OnInit {
   options: GridsterConfig;
   widgets: DisplayWidget[] = [];
-  items: GridsterItem[] = [];
 
   private updateDisplayWidgets = (widgets) => {
-    let changeOccured = false;
     let newDisplayWidgets = [];
     for (let widgetID in widgets) {
       let widget = widgets[widgetID];
@@ -36,9 +34,9 @@ export class DashboardBodyComponent implements OnInit {
       let displayWidget: DisplayWidget = _.find(this.widgets, { id: widgetID });
       if (displayWidget != null) {
         if (!_.isMatch(displayWidget.item, convertedPos)) {
-          Object.apply(displayWidget.item, convertedPos);
-          changeOccured = true;
+          Object.assign(displayWidget.item, convertedPos);
         }
+        displayWidget.widget = widget;
         newDisplayWidgets.push(displayWidget);
       } else {
         newDisplayWidgets.push({
@@ -46,16 +44,10 @@ export class DashboardBodyComponent implements OnInit {
           widget,
           item: convertedPos
         });
-        changeOccured = true;
       }
     }
-    if (newDisplayWidgets.length != this.widgets.length) {
-      changeOccured = true;
-    }
+    console.log("new display widgets");
     this.widgets = newDisplayWidgets;
-    if (changeOccured) {
-      this.items = _.map(this.widgets, 'item');
-    }
   }
 
   private updateEditting = (editting) => {
@@ -64,6 +56,7 @@ export class DashboardBodyComponent implements OnInit {
       console.log("Set draggable: ", editting);
       if (this.options.draggable.enabled != editting) {
         this.options.draggable.enabled = editting;
+        this.options.displayGrid = (editting)? DisplayGrid.Always: DisplayGrid.None;
         this.options.api.optionsChanged();
       }
     }
@@ -86,7 +79,7 @@ export class DashboardBodyComponent implements OnInit {
   ngOnInit(): void {
     this.options = {
       itemChangeCallback: (item: GridsterItem, itemComponent) => {
-        let itemI = _.indexOf(this.items, item);
+        let itemI = _.findIndex(this.widgets, {item});
         let displayWidget = this.widgets[itemI];
         let widget = displayWidget.widget;
         let convertedPos = { 
@@ -150,7 +143,7 @@ export class DashboardBodyComponent implements OnInit {
       disablePushOnResize: false,
       pushDirections: {north: true, east: true, south: true, west: true},
       pushResizeItems: false,
-      displayGrid: DisplayGrid.Always,
+      displayGrid: DisplayGrid.None,
       disableWindowResize: false,
       disableWarnings: false,
       scrollToNewItems: false

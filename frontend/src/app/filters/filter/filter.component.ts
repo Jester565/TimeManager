@@ -17,9 +17,7 @@ export class FilterComponent implements OnInit {
   constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
-    console.log("Filter: ", this.filter);
     for (let filterType of filterComponents) {
-      console.log("FType: ", filterType.Name);
       this.filterTypes.push(filterType);
       if (filterType.TypeID == this.filter.type) {
         this.setFilterType(filterType);

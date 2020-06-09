@@ -7,9 +7,10 @@ import { findWidgetsBottom } from '../../common/dashUtils';
 import { v4 as uuidv4 } from 'uuid';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterDialog } from '../../filters/filter-dialog/filter-dialog.component';
+import { NoneWidgetConfigComponent } from 'src/app/widgets/configs/configTypes/none-widget-config/none-widget-config.component';
 
-const DEFAULT_WIDGET_W = 5;
-const DEFAULT_WIDGET_H = 5;
+const DEFAULT_WIDGET_W = 2;
+const DEFAULT_WIDGET_H = 2;
 
 @Component({
   selector: 'app-dashboard-header',
@@ -42,11 +43,11 @@ export class DashboardHeaderComponent implements OnInit {
   onAddWidget() {
     let widgetsBottom = findWidgetsBottom(Object.values(this.dashboard.widgets));
     let widget: Widget = {
-      type: null,
+      type: NoneWidgetConfigComponent.TypeID,
       config: null,
       position: {
-        top: widgetsBottom,
-        left: 0,
+        top: null,
+        left: null,
         width: DEFAULT_WIDGET_W,
         height: DEFAULT_WIDGET_H
       }

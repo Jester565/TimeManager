@@ -32,7 +32,7 @@ const TEST_APP_STATE: AppState = {
         editting: false,
         widgets: { 
             "w1": {
-                type: "line",
+                type: "none",
                 position: {
                     top: 2,
                     left: 2,

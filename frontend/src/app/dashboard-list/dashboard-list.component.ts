@@ -51,8 +51,10 @@ export class DashboardListComponent implements OnInit {
       }
     });
     
-    dialogRef.afterClosed().subscribe(result => {
-      this.ngRedux.dispatch(removeDashboard(dashboard.id));
+    dialogRef.afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        this.ngRedux.dispatch(removeDashboard(dashboard.id));
+      }
     })
   }
 
