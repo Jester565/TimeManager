@@ -7,7 +7,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store';
-import { NgxWidgetGridModule } from 'ngx-widget-grid';
 import { rootReducer, rootEpic, AppState, INIT_APP_STATE } from './redux/root';
 import { createEpicMiddleware } from 'redux-observable';
 import { DashboardListComponent } from './dashboard-list/dashboard-list.component';
@@ -31,6 +30,7 @@ import { DashboardBodyComponent } from './dashboard-body/dashboard-body.componen
 import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.component';
 import { WidgetComponent } from './widget/widget.component';
 import { WidgetConfigComponent } from './widget-config/widget-config.component';
+import { GridsterModule } from 'angular-gridster2';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,6 @@ import { WidgetConfigComponent } from './widget-config/widget-config.component';
     //immediate registration required for progressive web app caching
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
     BrowserAnimationsModule,
-    NgxWidgetGridModule,
     NgReduxModule,
     DragDropModule,
     MatButtonModule,
@@ -64,7 +63,8 @@ import { WidgetConfigComponent } from './widget-config/widget-config.component';
     MatIconModule,
     FlexLayoutModule,
     MatToolbarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    GridsterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

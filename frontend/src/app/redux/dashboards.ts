@@ -1,6 +1,8 @@
 import { createReducer } from './utils';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
+import { mapTo, filter, map } from 'rxjs/operators';
+import { ofType, combineEpics } from 'redux-observable';
 
 const ADD = 'timemanager/dashboards/create';
 const SET_NAME = 'timemanager/dashboards/set_name';
@@ -13,6 +15,7 @@ const UPDATE_WIDGET = 'timemanager/dashboards/update_widget';
 const REMOVE_WIDGET = 'timemanager/dashboards/remove_widget';
 const SELECT = 'timemanager/dashboards/select';
 const EDIT = 'timemanager/dashboards/edit';
+const SET_CONFIG_WIDGET = 'timemanager/dashboards/set_config_widget';
 
 interface Position {
     top: number;
@@ -86,7 +89,7 @@ const setFilterReducer = (draft: Dashboard[], action: { dashboardID: string, fil
     dashboard.filter = action.filter;
 }
 
-const addWidgetReducer = (draft: Dashboard[], action: { dashboardID: string, widget: Widget, widgetID?: string }) => {
+const addWidgetReducer = (draft: Dashboard[], action: { dashboardID: string, widget: Widget, widgetID: string }) => {
     let dashboard = getDashboardWithID(draft, action.dashboardID);
     let widgetID = (action.widgetID)? action.widgetID: uuidv4();
     dashboard.widgets[widgetID] = action.widget;
@@ -113,6 +116,22 @@ const editDashboardReducer = (draft: Dashboard[], action: { dashboardID: string,
     dashboard.editting = action.editting;
 }
 
+const setConfigWidgetIDReducer = (draft: Dashboard[], action: { dashboardID: string, widgetID: string }) => {
+    let dashboard = getDashboardWithID(draft, action.dashboardID);
+    dashboard.configWidgetID = action.widgetID;
+}
+
+const addWidgetEpic = action$ => action$.pipe(
+    ofType(ADD_WIDGET),
+    map((action: any) => {
+        return { 
+            type: SET_CONFIG_WIDGET,
+            dashboardID: action.dashboardID,
+            widgetID: action.widgetID
+        }
+    })
+)
+
 export default createReducer([], {
     [ADD]: addDashboardReducer,
     [SET_NAME]: setNameReducer,
@@ -124,7 +143,7 @@ export default createReducer([], {
     [UPDATE_WIDGET]: updateWidgetReducer,
     [REMOVE_WIDGET]: removeWidgetReducer,
     [SELECT]: selectDashboardReducer,
-
+    [SET_CONFIG_WIDGET]: setConfigWidgetIDReducer
 });
 
 export function addDashboard(dashboard: Dashboard) {
@@ -173,7 +192,7 @@ export function moveDashboard(prevI: number, newI: number) {
     }
 }
 
-export function addWidget(dashboardID: string, widget: Widget, widgetID?: string) {
+export function addWidget(dashboardID: string, widget: Widget, widgetID: string) {
     return {
         type: ADD_WIDGET,
         dashboardID,
@@ -212,3 +231,12 @@ export function setEditting(dashboardID: string, editting: boolean) {
         dashboardID
     }
 }
+
+export function setConfigWidgetID(dashboardID: string, widgetID: string) {
+    return {
+        type: SET_CONFIG_WIDGET,
+        widgetID
+    }
+}
+
+export const epics = combineEpics(addWidgetEpic);

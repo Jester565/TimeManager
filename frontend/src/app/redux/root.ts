@@ -1,6 +1,6 @@
 import { combineEpics } from 'redux-observable';
 import { combineReducers } from 'redux';
-import dashboardsReducer, { Dashboard } from './dashboards';
+import dashboardsReducer, { Dashboard, epics as dashboardEpics } from './dashboards';
 import { epics as firestoreEpics } from './firestore';
 
 export interface AppState {
@@ -19,7 +19,7 @@ const loadState = () => {
     }
 };
 
-export const rootEpic = combineEpics(firestoreEpics);
+export const rootEpic = combineEpics(firestoreEpics, dashboardEpics);
 export const rootReducer = combineReducers<AppState>({
     dashboards: dashboardsReducer
 });
@@ -35,8 +35,8 @@ const TEST_APP_STATE: AppState = {
                 position: {
                     top: 2,
                     left: 2,
-                    width: 20,
-                    height: 20
+                    width: 2,
+                    height: 2
                 },
                 config: {
                     "name": "widget1"

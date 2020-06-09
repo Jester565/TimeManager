@@ -1,14 +1,6 @@
 <!-- TODO test adding trackby to ngfor over widgets -->
-<ngx-widget-grid [rows]="20" [columns]="100"
-[showGrid]="dashboard.editting" 
-(widgetPositionChange)="onWidgetPositionChange($event)"
-*ngFor="let widget of widgets">
-    <ngx-widget
-    [movable]="true" [resizable]="true"
-    [position]="widget.widget.position">
-        <app-widget 
-        [dashboardID]="dashboard.id" 
-        [widgetID]="widget.key" 
-        [widget]="widget.value"></app-widget>
-    </ngx-widget>
-</ngx-widget-grid>
+<gridster [options]="options">
+    <gridster-item [item]="item" *ngFor="let item of items">
+        
+    </gridster-item>
+</gridster>
