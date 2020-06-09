@@ -1,7 +1,7 @@
 import { createReducer } from './utils';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
-import { mapTo, filter, map } from 'rxjs/operators';
+import { mapTo, filter, map, debounce, debounceTime } from 'rxjs/operators';
 import { ofType, combineEpics } from 'redux-observable';
 
 const ADD = 'timemanager/dashboards/create';
@@ -16,6 +16,7 @@ const REMOVE_WIDGET = 'timemanager/dashboards/remove_widget';
 const SELECT = 'timemanager/dashboards/select';
 const EDIT = 'timemanager/dashboards/edit';
 const SET_CONFIG_WIDGET = 'timemanager/dashboards/set_config_widget';
+const DEBOUNCE_NAME = 'timemanager/dashboards/debounce_name';
 
 interface Position {
     top: number;
@@ -124,11 +125,15 @@ const setConfigWidgetIDReducer = (draft: Dashboard[], action: { dashboardID: str
 const addWidgetEpic = action$ => action$.pipe(
     ofType(ADD_WIDGET),
     map((action: any) => {
-        return { 
-            type: SET_CONFIG_WIDGET,
-            dashboardID: action.dashboardID,
-            widgetID: action.widgetID
-        }
+        return setConfigWidgetID(action.dashboardID, action.widgetID)
+    })
+)
+
+const debounceDashboardNameEpic = action$ => action$.pipe(
+    ofType(DEBOUNCE_NAME),
+    debounceTime(500),
+    map((action:any) => {
+        return setDashboardName(action.dashboardID, action.name)
     })
 )
 
@@ -241,4 +246,12 @@ export function setConfigWidgetID(dashboardID: string, widgetID: string) {
     }
 }
 
-export const epics = combineEpics(addWidgetEpic);
+export function debounceDashboardName(dashboardID: string, name: string) {
+    return {
+        type: DEBOUNCE_NAME,
+        dashboardID,
+        name
+    }
+}
+
+export const epics = combineEpics(addWidgetEpic, debounceDashboardNameEpic);

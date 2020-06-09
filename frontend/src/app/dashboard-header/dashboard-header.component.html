@@ -1,5 +1,11 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" class="container">
-    <span class="mat-body-1 dash-name">{{dashboard.name}}</span>
+    <div>
+        <span *ngIf="!dashboard.editting" class="mat-body-1 dash-name">{{dashboard.name}}</span>
+        <mat-form-field *ngIf="dashboard.editting" class="dash-name-field">
+            <mat-label>Dashboard Name</mat-label>
+            <input matInput placeholder="Dashboard Name" [value]="dashboard.name" (change)="onNameChange($event)" type="text" (click)="$event.target.select()">
+        </mat-form-field>
+    </div>
     <div>
         <button mat-mini-fab color="primary" class="dash-button" (click)="onFilter()"><mat-icon *ngIf="!showingFilter">filter_list</mat-icon><mat-icon *ngIf="showingFilter">done</mat-icon></button>
         <button mat-mini-fab color="accent" class="dash-button" (click)="onAddWidget()"><mat-icon>add</mat-icon></button>

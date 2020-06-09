@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Dashboard, addWidget, Widget, setEditting } from '../redux/dashboards';
+import { Dashboard, addWidget, Widget, setEditting, debounceDashboardName } from '../redux/dashboards';
 import { NgRedux } from '@angular-redux/store';
 import { AppState } from '../redux/root';
 import _ from 'lodash';
@@ -46,5 +46,9 @@ export class DashboardHeaderComponent implements OnInit {
 
   onEdit() {
     this.ngRedux.dispatch(setEditting(this.dashboard.id, !this.dashboard.editting));
+  }
+  onNameChange(evt) {
+    console.log("on name change: ", evt);
+    this.ngRedux.dispatch(debounceDashboardName(this.dashboard.id, evt.target.value));
   }
 }
