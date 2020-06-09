@@ -56,6 +56,7 @@ export class DashboardBodyComponent implements OnInit {
       console.log("Set draggable: ", editting);
       if (this.options.draggable.enabled != editting) {
         this.options.draggable.enabled = editting;
+        this.options.resizable.enabled = editting;
         this.options.displayGrid = (editting)? DisplayGrid.Always: DisplayGrid.None;
         this.options.api.optionsChanged();
       }
@@ -135,7 +136,7 @@ export class DashboardBodyComponent implements OnInit {
         enabled: false,
       },
       resizable: {
-        enabled: true,
+        enabled: false,
       },
       swap: false,
       pushItems: true,
