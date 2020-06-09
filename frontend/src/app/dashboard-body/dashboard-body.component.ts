@@ -23,17 +23,11 @@ export class DashboardBodyComponent implements OnInit {
   widgets: DisplayWidget[] = [];
   items: GridsterItem[] = [];
 
-  private _dashboard: Dashboard = null;
-  get dashboard(): Dashboard {
-    return this._dashboard;
-  }
-
-  @Input('dashboard')
-  set dashboard(val: Dashboard) {
-    this._dashboard = val;
+  private updateDisplayWidgets = (widgets) => {
     let changeOccured = false;
-    for (let widgetID in val.widgets) {
-      let widget = val.widgets[widgetID];
+    let newDisplayWidgets = [];
+    for (let widgetID in widgets) {
+      let widget = widgets[widgetID];
       let convertedPos = { 
         rows: widget.position.height,
         cols: widget.position.width,
@@ -43,12 +37,12 @@ export class DashboardBodyComponent implements OnInit {
       let displayWidget: DisplayWidget = _.find(this.widgets, { id: widgetID });
       if (displayWidget != null) {
         if (!_.isMatch(displayWidget.item, convertedPos)) {
-          console.log("Change detected");
           Object.apply(displayWidget.item, convertedPos);
           changeOccured = true;
         }
+        newDisplayWidgets.push(displayWidget);
       } else {
-        this.widgets.push({
+        newDisplayWidgets.push({
           id: widgetID,
           widget,
           item: convertedPos
@@ -56,9 +50,36 @@ export class DashboardBodyComponent implements OnInit {
         changeOccured = true;
       }
     }
+    if (newDisplayWidgets.length != this.widgets.length) {
+      changeOccured = true;
+    }
+    this.widgets = newDisplayWidgets;
     if (changeOccured) {
       this.items = _.map(this.widgets, 'item');
     }
+  }
+
+  private updateEditting = (editting) => {
+    //may be called before init
+    if (this.options) {
+      console.log("Set draggable: ", editting);
+      if (this.options.draggable.enabled != editting) {
+        this.options.draggable.enabled = editting;
+        this.options.api.optionsChanged();
+      }
+    }
+  }
+
+  private _dashboard: Dashboard = null;
+  get dashboard(): Dashboard {
+    return this._dashboard;
+  }
+
+  @Input('dashboard')
+  set dashboard(val: Dashboard) {
+    this._dashboard = val;
+    this.updateDisplayWidgets(val.widgets);
+    this.updateEditting(val.editting);
   }
 
   constructor(private ngRedux: NgRedux<AppState>, private cdrf: ChangeDetectorRef) { }
@@ -92,9 +113,9 @@ export class DashboardBodyComponent implements OnInit {
       outerMarginLeft: null,
       useTransformPositioning: true,
       mobileBreakpoint: 640,
-      minCols: 1,
+      minCols: 5,
       maxCols: 100,
-      minRows: 1,
+      minRows: 5,
       maxRows: 100,
       maxItemCols: 100,
       minItemCols: 1,
@@ -119,7 +140,7 @@ export class DashboardBodyComponent implements OnInit {
       emptyCellDragMaxRows: 50,
       ignoreMarginInRow: false,
       draggable: {
-        enabled: true,
+        enabled: false,
       },
       resizable: {
         enabled: true,

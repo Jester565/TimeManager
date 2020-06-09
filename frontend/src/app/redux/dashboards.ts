@@ -143,7 +143,8 @@ export default createReducer([], {
     [UPDATE_WIDGET]: updateWidgetReducer,
     [REMOVE_WIDGET]: removeWidgetReducer,
     [SELECT]: selectDashboardReducer,
-    [SET_CONFIG_WIDGET]: setConfigWidgetIDReducer
+    [SET_CONFIG_WIDGET]: setConfigWidgetIDReducer,
+    [EDIT]: editDashboardReducer
 });
 
 export function addDashboard(dashboard: Dashboard) {
@@ -228,7 +229,8 @@ export function selectDashboard(dashboardID: string) {
 export function setEditting(dashboardID: string, editting: boolean) {
     return {
         type: EDIT,
-        dashboardID
+        dashboardID,
+        editting: editting
     }
 }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Dashboard, addWidget, Widget } from '../redux/dashboards';
+import { Dashboard, addWidget, Widget, setEditting } from '../redux/dashboards';
 import { NgRedux } from '@angular-redux/store';
 import { AppState } from '../redux/root';
 import _ from 'lodash';
@@ -15,6 +15,7 @@ const DEFAULT_WIDGET_H = 5;
   styleUrls: ['./dashboard-header.component.css']
 })
 export class DashboardHeaderComponent implements OnInit {
+  showingFilter: boolean = false;
   @Input() dashboard: Dashboard;
 
   constructor(private ngRedux: NgRedux<AppState>) { }
@@ -44,6 +45,6 @@ export class DashboardHeaderComponent implements OnInit {
   }
 
   onEdit() {
-    //TODO
+    this.ngRedux.dispatch(setEditting(this.dashboard.id, !this.dashboard.editting));
   }
 }
