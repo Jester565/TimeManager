@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { FilterDirective } from '../filter.directive';
-import { filterComponents } from '../dynamic-components';
-import { Filter } from '../redux/dashboards';
-import { FilterInterface, StaticFilterInterface } from '../filter.interface';
+import { filterComponents } from '../filterTypes/filterTypes';
+import { Filter } from '../../redux/dashboards';
+import { FilterInterface, StaticFilterInterface } from '../filterTypes/filter.interface';
 
 @Component({
   selector: 'app-filter',

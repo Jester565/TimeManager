@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FilterInterface, StaticFilterInterface } from '../filter.interface';
-import { staticImplements } from '../common/static';
+import { staticImplements } from '../../../common/static';
 
 @Component({
   selector: 'app-none-filter',

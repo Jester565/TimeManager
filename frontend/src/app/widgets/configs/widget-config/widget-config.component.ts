@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Widget } from '../redux/dashboards';
+import { Widget } from '../../../redux/dashboards';
 
 @Component({
   selector: 'app-widget-config',

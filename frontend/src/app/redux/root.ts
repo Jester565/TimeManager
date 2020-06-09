@@ -2,7 +2,7 @@ import { combineEpics } from 'redux-observable';
 import { combineReducers } from 'redux';
 import dashboardsReducer, { Dashboard, epics as dashboardEpics } from './dashboards';
 import { epics as firestoreEpics } from './firestore';
-import { NoneFilterComponent } from '../none-filter/none-filter.component';
+import { NoneFilterComponent } from '../filters/filterTypes/none-filter/none-filter.component';
 
 export interface AppState {
     dashboards: Dashboard[];

@@ -1,4 +1,4 @@
-import { Filter } from './redux/dashboards';
+import { Filter } from '../../redux/dashboards';
 
 export interface StaticFilterInterface {
     TypeID: string;

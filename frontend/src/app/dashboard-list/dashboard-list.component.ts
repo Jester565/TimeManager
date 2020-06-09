@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 import { Dashboard, moveDashboard, selectDashboard, removeDashboard, addDashboard } from '../redux/dashboards';
 import { AppState } from '../redux/root';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmCancelDialog } from '../common/confirm-cancel-dialog';
+import { ConfirmCancelDialog } from '../app-common/app-common.module';
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
-import { NoneFilterComponent } from '../none-filter/none-filter.component';
+import { NoneFilterComponent } from '../filters/filterTypes/none-filter/none-filter.component';
 
 @Component({
   selector: 'app-dashboard-list',

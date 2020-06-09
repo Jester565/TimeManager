@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { staticImplements } from '../common/static';
+import { staticImplements } from '../../../common/static';
 import { StaticFilterInterface, FilterInterface } from '../filter.interface';
 
 @Component({

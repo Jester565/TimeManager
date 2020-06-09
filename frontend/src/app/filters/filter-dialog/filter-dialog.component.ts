@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Filter } from '../redux/dashboards';
+import { Filter } from '../../redux/dashboards';
 import _ from 'lodash';
 
 @Component({

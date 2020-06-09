@@ -1,10 +1,9 @@
 import { Component, OnInit, Input, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { Dashboard, Widget, updateWidget } from '../redux/dashboards';
+import { Dashboard, Widget, updateWidget } from '../../redux/dashboards';
 import { NgRedux } from '@angular-redux/store';
-import { AppState } from '../redux/root';
+import { AppState } from '../../redux/root';
 import _ from 'lodash';
 import { GridsterConfig, GridsterItem, DisplayGrid, GridType, CompactType }  from 'angular-gridster2';
-import { ThrowStmt } from '@angular/compiler';
 
 interface DisplayWidget {
   id: string,

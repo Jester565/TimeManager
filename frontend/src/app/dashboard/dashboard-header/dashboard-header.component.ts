@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Dashboard, addWidget, Widget, setEditting, debounceDashboardName, setDashboardFilter } from '../redux/dashboards';
+import { Dashboard, addWidget, Widget, setEditting, debounceDashboardName, setDashboardFilter } from '../../redux/dashboards';
 import { NgRedux } from '@angular-redux/store';
-import { AppState } from '../redux/root';
+import { AppState } from '../../redux/root';
 import _ from 'lodash';
-import { findWidgetsBottom } from '../common/dashUtils';
+import { findWidgetsBottom } from '../../common/dashUtils';
 import { v4 as uuidv4 } from 'uuid';
 import { MatDialog } from '@angular/material/dialog';
-import { FilterDialog } from '../filter-dialog/filter-dialog.component';
+import { FilterDialog } from '../../filters/filter-dialog/filter-dialog.component';
 
 const DEFAULT_WIDGET_W = 5;
 const DEFAULT_WIDGET_H = 5;

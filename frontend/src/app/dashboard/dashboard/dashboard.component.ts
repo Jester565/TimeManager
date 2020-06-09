@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Dashboard } from '../redux/dashboards';
-import { NgRedux } from '@angular-redux/store';
-import { AppState } from '../redux/root';
+import { Dashboard } from '../../redux/dashboards';
 
 @Component({
   selector: 'app-dashboard',
