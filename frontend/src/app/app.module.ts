@@ -25,12 +25,20 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { ConfirmCancelDialog } from './common/confirm-cancel-dialog';
 import { DashboardBodyComponent } from './dashboard-body/dashboard-body.component';
 import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.component';
 import { WidgetComponent } from './widget/widget.component';
 import { WidgetConfigComponent } from './widget-config/widget-config.component';
 import { GridsterModule } from 'angular-gridster2';
+import { FilterDialog } from './filter-dialog/filter-dialog.component';
+import { FilterComponent } from './filter/filter.component';
+import { DateFilterComponent } from './date-filter/date-filter.component';
+import { DateRangeFilterComponent } from './date-range-filter/date-range-filter.component';
+import { FilterDirective } from './filter.directive';
+import { filterComponents } from './dynamic-components';
+import { NoneFilterComponent } from './none-filter/none-filter.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +49,13 @@ import { GridsterModule } from 'angular-gridster2';
     DashboardBodyComponent,
     DashboardHeaderComponent,
     WidgetComponent,
-    WidgetConfigComponent
+    WidgetConfigComponent,
+    FilterDialog,
+    FilterComponent,
+    DateFilterComponent,
+    DateRangeFilterComponent,
+    FilterDirective,
+    NoneFilterComponent
   ],
   imports: [
     BrowserModule,
@@ -64,10 +78,12 @@ import { GridsterModule } from 'angular-gridster2';
     FlexLayoutModule,
     MatToolbarModule,
     MatSidenavModule,
+    MatButtonToggleModule,
     GridsterModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [...(filterComponents as any[])]
 })
 export class AppModule { 
   constructor(private ngRedux: NgRedux<AppState>, 

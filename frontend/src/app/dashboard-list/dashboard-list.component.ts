@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmCancelDialog } from '../common/confirm-cancel-dialog';
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
+import { NoneFilterComponent } from '../none-filter/none-filter.component';
 
 @Component({
   selector: 'app-dashboard-list',
@@ -59,7 +60,10 @@ export class DashboardListComponent implements OnInit {
     let dashboard: Dashboard = {
       id: uuidv4(),
       name: "Untitled Dashboard",
-      filter: null,
+      filter: {
+        type: NoneFilterComponent.TypeID,
+        config: {}
+      },
       selected: false,
       widgets: {}
     }

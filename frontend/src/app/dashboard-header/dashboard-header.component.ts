@@ -1,10 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Dashboard, addWidget, Widget, setEditting, debounceDashboardName } from '../redux/dashboards';
+import { Dashboard, addWidget, Widget, setEditting, debounceDashboardName, setDashboardFilter } from '../redux/dashboards';
 import { NgRedux } from '@angular-redux/store';
 import { AppState } from '../redux/root';
 import _ from 'lodash';
 import { findWidgetsBottom } from '../common/dashUtils';
 import { v4 as uuidv4 } from 'uuid';
+import { MatDialog } from '@angular/material/dialog';
+import { FilterDialog } from '../filter-dialog/filter-dialog.component';
 
 const DEFAULT_WIDGET_W = 5;
 const DEFAULT_WIDGET_H = 5;
@@ -15,16 +17,26 @@ const DEFAULT_WIDGET_H = 5;
   styleUrls: ['./dashboard-header.component.css']
 })
 export class DashboardHeaderComponent implements OnInit {
-  showingFilter: boolean = false;
   @Input() dashboard: Dashboard;
 
-  constructor(private ngRedux: NgRedux<AppState>) { }
+  constructor(private ngRedux: NgRedux<AppState>,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
   
   onFilter() {
-
+    const dialogRef = this.dialog.open
+    (FilterDialog, {
+      width: '800px',
+      data: this.dashboard.filter
+    });
+    
+    dialogRef.afterClosed().subscribe(filter => {
+      if (filter != null) {
+        this.ngRedux.dispatch(setDashboardFilter(this.dashboard.id, filter));
+      }
+    })
   }
 
   onAddWidget() {
@@ -40,7 +52,6 @@ export class DashboardHeaderComponent implements OnInit {
       }
     }
     let widgetID = uuidv4();
-    console.log("----------");
     this.ngRedux.dispatch(addWidget(this.dashboard.id, widget, widgetID));
   }
 
@@ -48,7 +59,6 @@ export class DashboardHeaderComponent implements OnInit {
     this.ngRedux.dispatch(setEditting(this.dashboard.id, !this.dashboard.editting));
   }
   onNameChange(evt) {
-    console.log("on name change: ", evt);
     this.ngRedux.dispatch(debounceDashboardName(this.dashboard.id, evt.target.value));
   }
 }

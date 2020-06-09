@@ -2,6 +2,7 @@ import { combineEpics } from 'redux-observable';
 import { combineReducers } from 'redux';
 import dashboardsReducer, { Dashboard, epics as dashboardEpics } from './dashboards';
 import { epics as firestoreEpics } from './firestore';
+import { NoneFilterComponent } from '../none-filter/none-filter.component';
 
 export interface AppState {
     dashboards: Dashboard[];
@@ -43,7 +44,10 @@ const TEST_APP_STATE: AppState = {
                 }
             }
         },
-        filter: null,
+        filter: {
+            type: NoneFilterComponent.TypeID,
+            config: {}
+        },
         selected: true
     },
     {
@@ -51,7 +55,10 @@ const TEST_APP_STATE: AppState = {
         name: "ryan",
         editting: false,
         widgets: {},
-        filter: null,
+        filter: {
+            type: NoneFilterComponent.TypeID,
+            config: {}
+        },
         selected: false
     },
     {
@@ -59,7 +66,10 @@ const TEST_APP_STATE: AppState = {
         name: "cow",
         editting: false,
         widgets: {},
-        filter: null,
+        filter: {
+            type: NoneFilterComponent.TypeID,
+            config: {}
+        },
         selected: false
     }]
 }

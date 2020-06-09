@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Dashboard Filter</h1>
+<div mat-dialog-content>
+    <app-filter [filter]="filter"></app-filter>
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="null">Cancel</button>
+    <button mat-raised-button color="warn" [mat-dialog-close]="filter" cdkFocusInitial>Ok</button>
+</div>

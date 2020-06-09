@@ -1,0 +1,11 @@
+<div>
+    <mat-button-toggle-group [value]="filterType" (change)="setFilterType($event.value)">
+        <mat-button-toggle 
+        *ngFor="let fType of filterTypes"
+        [value]="fType"
+        >{{fType.Name}}</mat-button-toggle>
+    </mat-button-toggle-group>
+    <div>
+        <ng-template app-filter-directive></ng-template>
+    </div>
+</div>
