@@ -15,6 +15,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppMaterialModule } from './app-material-module/app-material.module';
 import { CommonModule } from '@angular/common';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { DashboardModule } from './dashboard/dashboard.module';
     FlexLayoutModule,
     AppMaterialModule,
     CommonModule,
-    DashboardModule
+    DashboardModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent],

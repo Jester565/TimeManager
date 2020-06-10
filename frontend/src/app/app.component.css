@@ -1,6 +1,13 @@
 .dashboard-list {
     width: 20%;
     min-width: 200px;
+    height: 45%;
+}
+
+.schedule-list {
+    width: 20%;
+    min-width: 200px;
+    height: 45%;
 }
 
 .app-container {
@@ -35,4 +42,22 @@
 
 .app-sidenav-content {
     padding-top: 65px;
+}
+
+.login-container {
+    width: 100%;
+    height: 100%;
+}
+
+.load-container {
+    width: 100%;
+    height: 100%;
+}
+
+.google-login-button {
+    font-size: larger;
+}
+
+.toolbar-fill {
+    flex: 1 1 auto;
 }

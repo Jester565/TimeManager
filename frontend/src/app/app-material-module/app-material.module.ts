@@ -17,6 +17,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSelectModule} from '@angular/material/select';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatSidenavModule,
     MatButtonToggleModule,
     MatSelectModule,
-    MatTabsModule
+    MatTabsModule,
+    MatMenuModule
   ],
   exports: [
     MatButtonModule,
@@ -55,7 +57,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatSidenavModule,
     MatButtonToggleModule,
     MatSelectModule,
-    MatTabsModule
+    MatTabsModule,
+    MatMenuModule
   ]
 })
 export class AppMaterialModule { }
