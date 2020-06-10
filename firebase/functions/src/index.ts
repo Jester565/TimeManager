@@ -16,7 +16,6 @@ exports.addUserDoc = functions.auth.user().onCreate(async (authData) => {
         };
         
         await db.collection('users').doc(authData.uid).set(userData);
-        console.log(`Created user: ${authData.uid}`);
     } catch (err) {
         console.error(err);
     }

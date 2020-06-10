@@ -1,0 +1,32 @@
+<div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="mat-body-1 title">Schedules</div>
+        <button mat-icon-button color="primary" (click)="onEditToggle()">
+            <mat-icon>{{ editting? 'done': 'edit' }}</mat-icon>
+        </button>
+    </div>
+    <div *ngIf="editting" cdkDropList class="schedule-list" (cdkDropListDropped)="drop($event)">
+        <div fxLayout="row" fxLayoutAlign="space-between center" 
+        class="schedule-box schedule-box-draggable"
+        [ngClass]="{'selected-schedule': schedule.selected}"
+        *ngFor="let schedule of schedules | async" cdkDrag>
+            <div class="mat-body-2 schedule-name">{{schedule.name}}</div>
+            <button mat-icon-button color="warn" (click)="onDeleteSchedule(schedule)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div *ngIf="!editting" class="schedule-list">
+        <div class="schedule-box"
+        [ngClass]="{'selected-schedule': (schedule.id == selectedScheduleID)}"
+        *ngFor="let schedule of schedules | async"
+        (click)="onScheduleSelect(schedule)">
+            <div class="mat-body-2 schedule-name">{{schedule.name}}</div>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" class="add-container">
+        <button mat-mini-fab color="primary" (click)="onAddSchedule()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>

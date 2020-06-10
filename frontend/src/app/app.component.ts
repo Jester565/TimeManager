@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgRedux, select } from '@angular-redux/store';
 import { AppState } from './redux/root';
-import { Dashboard } from './redux/dashboards';
+import { Dashboard, selectDashboard } from './redux/dashboards';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   loading = true;
   title = 'timeManager';
   selectedDashboard: Dashboard = null;
+  selectedScheduleID: string = null;
 
   @select() dashboards: Observable<Dashboard[]>;
   constructor(public auth: AngularFireAuth, private ngRedux: NgRedux<AppState>) {
@@ -31,7 +32,10 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.dashboards.subscribe((dashboards) => { 
       this.selectedDashboard = _.find(dashboards, { selected: true });
-    })
+      if (this.selectedDashboard) {
+        this.selectedScheduleID = null;
+      }
+    });
   }
 
   login() {
@@ -40,5 +44,12 @@ export class AppComponent implements OnInit {
 
   logOut() {
     this.auth.signOut();
+  }
+
+  onSelectedScheduleID(id) {
+    if (id != null) {
+      this.selectedScheduleID = id;
+      this.ngRedux.dispatch(selectDashboard(null));
+    }
   }
 }

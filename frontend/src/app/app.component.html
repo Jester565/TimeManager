@@ -16,8 +16,16 @@
   </mat-menu>
   <mat-sidenav-container class="app-sidenav-container">
     <mat-sidenav #snav class="app-sidenav">
-      <app-dashboard-list class="dashboard-list"></app-dashboard-list>
-      <!--<app-schedule-list class="schedule-list"></app-schedule-list>-->
+      <div *ngIf="auth.user | async as user">
+        <div class="dashboard-list">
+          <app-dashboard-list></app-dashboard-list>
+        </div>
+        <div class="schedule-list">
+          <app-schedule-list
+          [selectedScheduleID]="selectedScheduleID"
+          (selectedScheduleIDChange)="onSelectedScheduleID($event)"></app-schedule-list>
+        </div>
+      </div>
     </mat-sidenav>
     <mat-sidenav-content class="app-sidenav-content">
       <div *ngIf="loading" >
@@ -29,7 +37,12 @@
       </div>
       <div *ngIf="!loading">
         <div *ngIf="auth.user | async as user; else showLogin" >
-          <app-dashboard [dashboard]="selectedDashboard"></app-dashboard>
+          <div *ngIf="selectedDashboard != null; else showSchedule">
+            <app-dashboard [dashboard]="selectedDashboard"></app-dashboard>
+          </div>
+          <ng-template #showSchedule>
+            <p>Schedule</p>
+          </ng-template>
         </div>
         <ng-template #showLogin>
           <div class="login-container" fxLayout="column" fxLayoutAlign="center center">

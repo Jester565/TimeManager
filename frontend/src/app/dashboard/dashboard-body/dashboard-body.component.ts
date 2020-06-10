@@ -46,14 +46,12 @@ export class DashboardBodyComponent implements OnInit {
         });
       }
     }
-    console.log("new display widgets");
     this.widgets = newDisplayWidgets;
   }
 
   private updateEditting = (editting) => {
     //may be called before init
     if (this.options) {
-      console.log("Set draggable: ", editting);
       if (this.options.draggable.enabled != editting) {
         this.options.draggable.enabled = editting;
         this.options.resizable.enabled = editting;

@@ -71,7 +71,6 @@ export class WidgetComponent implements OnInit {
 
   @Input('widget')
   set widget(val: Widget) {
-    console.log("New Widget set: ", val);
     this._widget = val;
     for (let widgetType of widgetComponents) {
       if (widgetType.TypeID == this.widget.type) {
@@ -95,9 +94,7 @@ export class WidgetComponent implements OnInit {
   }
 
   applyWidgetType(widgetType: StaticWidgetInterface) {
-    console.log("apply called");
     if (this.widgetType != widgetType) {
-      console.log("apply executed");
       this.widgetType = widgetType;
       const componentFactory = 
         this.componentFactoryResolver.resolveComponentFactory(widgetType as any);

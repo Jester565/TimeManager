@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import * as moment from 'moment';
+import * as moment from 'moment-timezone';
 
 export interface FilterDate {
   method: string,
@@ -14,7 +14,11 @@ export interface FilterDate {
 })
 export class FilterDateCreatorComponent implements OnInit {
   get configDate(): any {
-    return (this.config && this.config.date)? moment.unix(this.config.date): null;
+    if (this.config && this.config.date) {
+      let utc = moment.unix(this.config.date).utc(false);
+      return utc;
+    }
+    return null;
   }
 
   @Input() config: FilterDate
@@ -22,11 +26,10 @@ export class FilterDateCreatorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("FilterDate: ", this.config);
   }
 
   onDate(date) {
-    let timestamp = date.unix();
+    let timestamp = date.utc(true).unix();
     this.config.date = timestamp;
   }
 }

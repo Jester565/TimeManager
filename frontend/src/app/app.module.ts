@@ -18,6 +18,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { SchedulesModule } from './schedules/schedules.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AppMaterialModule,
     CommonModule,
     DashboardModule,
+    SchedulesModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule

@@ -1,7 +1,7 @@
 .dashboard-list {
     width: 20%;
     min-width: 200px;
-    height: 45%;
+    min-height: 40vh;
 }
 
 .schedule-list {
