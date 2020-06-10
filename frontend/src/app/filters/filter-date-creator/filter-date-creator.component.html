@@ -1,0 +1,44 @@
+<div *ngIf="config">
+    <br />
+    <mat-form-field>
+        <mat-label>Method</mat-label>
+        <mat-select [(ngModel)]="config.method">
+            <mat-option value="date">
+                Date
+            </mat-option>
+            <mat-option value="days-ago">
+                Days Ago
+            </mat-option>
+            <mat-option value="today">
+                Today
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div [ngSwitch]="config.method">
+        <div *ngSwitchCase="'date'">
+            <mat-form-field>
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker"
+                [value]="configDate"
+                (dateChange)="onDate($event.value)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div *ngSwitchCase="'days-ago'">
+            <mat-form-field>
+                <mat-label>Days Ago</mat-label>
+                <input matInput 
+                type="number" 
+                placeholder="7" 
+                min="0"
+                [(ngModel)]="config.daysAgo">
+                <span matSuffix>days</span>
+            </mat-form-field>
+        </div>
+        <div *ngSwitchCase="'today'">
+            <span class="mat-body-2">Will show results for the current day</span>
+        </div>
+        <div *ngSwitchDefault><span>Select a Method</span></div>
+    </div>
+</div>

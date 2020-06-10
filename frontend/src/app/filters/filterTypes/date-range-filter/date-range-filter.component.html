@@ -1,1 +1,16 @@
-<p>Date Range filter works</p>
+<div class="container" fxLayout="column" fxLayoutAlign="center center">
+    <div class="subcontainer">
+        <span class="mat-headline title">See Events Between:</span>
+        <br />
+        <div class="date-creators-container" fxLayout="row" fxLayoutAlign="space-between">
+            <div class="date-creator-container">
+                <span class="mat-body-1 date-title">Start</span>
+                <app-filter-date-creator class="date-creator" [config]="filterConfig.startDateFilter"></app-filter-date-creator>
+            </div>
+            <div class="date-creator-container">
+                <span class="mat-body-1 date-title">End</span>
+                <app-filter-date-creator class="date-creator" [config]="filterConfig.endDateFilter"></app-filter-date-creator>
+            </div>
+        </div>
+    </div>
+</div>

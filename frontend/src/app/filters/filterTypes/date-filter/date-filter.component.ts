@@ -11,11 +11,27 @@ import { staticImplements } from '../../../common/static';
 export class DateFilterComponent implements FilterInterface {
   static Name = "Date Filter";
   static TypeID = "date-filter";
-  @Input() filterConfig;
+  
+  private _filterConfig: any = null;
+  get filterConfig(): any {
+    return this._filterConfig;
+  }
+
+  @Input('filterConfig')
+  set filterConfig(val: any) {
+    if (val.dateFilter == null) {
+      val.dateFilter = {
+        method: "date",
+        date: null,
+        daysAgo: 0
+      };
+    }
+    this._filterConfig = val;
+  }
 
   constructor() { }
 
   ngOnInit(): void {
+    
   }
-
 }

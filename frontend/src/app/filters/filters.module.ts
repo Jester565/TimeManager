@@ -9,6 +9,8 @@ import { NoneFilterComponent } from './filterTypes/none-filter/none-filter.compo
 import { filterComponents } from './filterTypes/filterTypes';
 import { AppMaterialModule } from '../app-material-module/app-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FilterDateCreatorComponent } from './filter-date-creator/filter-date-creator.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,12 +19,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FilterComponent,
     DateRangeFilterComponent,
     DateFilterComponent,
-    NoneFilterComponent
+    NoneFilterComponent,
+    FilterDateCreatorComponent
   ],
   imports: [
     CommonModule,
     AppMaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule
   ],
   exports: [
     FilterDialog,

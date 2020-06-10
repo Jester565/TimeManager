@@ -1,0 +1,21 @@
+.container {
+    min-height: 300px;
+    background: #202020;
+}
+
+.subcontainer {
+    min-height: 150px;
+}
+
+.date-creator-container {
+    min-width: 250px;
+}
+
+.date-title {
+    font-size: large;
+    padding-bottom: 20px;
+}
+
+.title {
+    margin-bottom: 30px;
+}

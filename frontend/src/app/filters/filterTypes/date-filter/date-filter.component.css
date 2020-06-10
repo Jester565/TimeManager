@@ -1,0 +1,8 @@
+.container {
+    min-height: 300px;
+    background: #202020;
+}
+
+.subcontainer {
+    min-height: 150px;
+}
