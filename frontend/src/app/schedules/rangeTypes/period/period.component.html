@@ -1,31 +1,33 @@
-<div fxLayout="row" fxLayoutAlign="start center">
-    <div class="ntimepicker-container">
-        <span class="mat-body">Start Time</span>
-        <ngx-timepicker-field 
-        class="timepicker"
-        [defaultTime]="initStartTime" 
-        [clockTheme]="clockTheme"
-        (timeChanged)="onStartTime($event)"></ngx-timepicker-field>
+<form>
+    <div class="container" fxLayout="row" fxLayoutAlign="start end">
+        <div class="timepicker-container">
+            <span class="mat-body">Start Time</span>
+            <ngx-timepicker-field 
+            class="timepicker"
+            [defaultTime]="initStartTime" 
+            [clockTheme]="clockTheme"
+            (timeChanged)="onStartTime($event)"></ngx-timepicker-field>
+        </div>
+        <div class="timepicker-container">
+            <span class="mat-body">End Time (exclusive)</span>
+            <ngx-timepicker-field 
+            class="timepicker"
+            [defaultTime]="initEndTime" 
+            (timeChanged)="onEndTime($event)"></ngx-timepicker-field>
+        </div>
+        <div class="activity-container">
+            <mat-form-field class="activity-select">
+                <mat-label>Activities</mat-label>
+                <mat-select
+                    [value]="data.activity"
+                    (selectionChange)="onActivitySelect($event.value)">
+                    <mat-option *ngFor="let activity of activities" 
+                    [value]="activity">{{activity}}</mat-option>
+                    <mat-option value="add">
+                        Add
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
-    <div class="ntimepicker-container">
-        <span class="mat-body">End Time (exclusive)</span>
-        <ngx-timepicker-field 
-        class="timepicker"
-        [defaultTime]="initEndTime" 
-        (timeChanged)="onEndTime($event)"></ngx-timepicker-field>
-    </div>
-    <div>
-        <mat-form-field>
-            <mat-label>Activities</mat-label>
-            <mat-select
-                [value]="data.activity"
-                (selectionChange)="onActivitySelect($event.value)">
-                <mat-option *ngFor="let activity of activities" 
-                [value]="activity">{{activity}}</mat-option>
-                <mat-option value="add">
-                    Add
-                </mat-option>
-            </mat-select>
-          </mat-form-field>
-    </div>
-</div>
+</form>
