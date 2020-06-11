@@ -6,6 +6,7 @@ import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 import _ from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 import { NameDialog } from 'src/app/app-common/app-common.module';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-period',
@@ -16,15 +17,20 @@ import { NameDialog } from 'src/app/app-common/app-common.module';
 export class PeriodComponent implements OnInit, RangeInterface {
   static GetDefaultData(): any {
     return {
+      id: uuidv4(),
       start: null,
       end: null,
       activity: null
     }
   }
 
+  initStartTime: string;
+  initEndTime: string;
+
   get startTime() {
     if (this.data && (this.data.start != null)) {
       let parsed = parseSecondsInDay(this.data.start);
+      console.log("Parsed start time: ", parsed);
       return `${parsed.aHour}:${parsed.minute} ${parsed.a}`;
     }
     return null;
@@ -58,7 +64,12 @@ export class PeriodComponent implements OnInit, RangeInterface {
   }
 
   set data(val) {
+    let firstSet = (this._data == null && val);
     this._data = val;
+    if (firstSet) {
+      this.initStartTime = this.startTime;
+      this.initEndTime = this.endTime;
+    }
     this.dataChange.emit(this._data);
   }
 
@@ -86,13 +97,13 @@ export class PeriodComponent implements OnInit, RangeInterface {
     let newData = _.clone(this.data);
     newData.start = timeStrToSeconds(timeStr);
     console.log("START: ", newData.start);
-    return newData;
+    this.data = newData;
   }
 
   onEndTime(timeStr: string) {
     let newData = _.clone(this.data);
     newData.end = timeStrToSeconds(timeStr);
-    return newData;
+    this.data = newData;
   }
 
   onActivitySelect(val) {

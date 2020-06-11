@@ -1,5 +1,5 @@
 <div class="container" fxLayout="column" fxLayoutAlign="start center">
-    <div *ngFor="let data of ranges; index as i" class="date-range-box" fxLayout="row" fxLayoutAlign="space-between center">
+    <div *ngFor="let data of ranges; index as i;trackBy:identify" class="date-range-box" fxLayout="row" fxLayoutAlign="space-between center">
         <app-range-wrapper 
         [rangeType]="rangeType" 
         [data]="data" 

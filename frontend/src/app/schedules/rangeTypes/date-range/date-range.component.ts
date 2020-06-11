@@ -4,6 +4,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import { staticImplements } from 'src/app/common/static';
 import { StaticRangeInterface, RangeInterface } from '../range.interface';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-date-range',
@@ -14,6 +15,7 @@ import { StaticRangeInterface, RangeInterface } from '../range.interface';
 export class DateRangeComponent implements OnInit, RangeInterface {
   static GetDefaultData(): any {
     return {
+      id: uuidv4(),
       start: null,
       end: null
     }

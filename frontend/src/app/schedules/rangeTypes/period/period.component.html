@@ -3,7 +3,7 @@
         <span class="mat-body">Start Time</span>
         <ngx-timepicker-field 
         class="timepicker"
-        [defaultTime]="startTime" 
+        [defaultTime]="initStartTime" 
         [clockTheme]="clockTheme"
         (timeChanged)="onStartTime($event)"></ngx-timepicker-field>
     </div>
@@ -11,7 +11,7 @@
         <span class="mat-body">End Time (exclusive)</span>
         <ngx-timepicker-field 
         class="timepicker"
-        [defaultTime]="endTime" 
+        [defaultTime]="initEndTime" 
         (timeChanged)="onEndTime($event)"></ngx-timepicker-field>
     </div>
     <div>

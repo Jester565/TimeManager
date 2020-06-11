@@ -69,4 +69,8 @@ export class RangeListComponent implements OnInit {
     newRanges.splice(i, 1);
     this.ranges = newRanges;
   }
+
+  identify(index, item) {
+    return item.id; // or item.id
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { staticImplements } from 'src/app/common/static';
 import { StaticRangeInterface, RangeInterface } from '../range.interface';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-activity-period',
@@ -11,6 +12,7 @@ import { StaticRangeInterface, RangeInterface } from '../range.interface';
 export class ActivityPeriodComponent implements OnInit, RangeInterface {
   static GetDefaultData(): any {
     return {
+      id: uuidv4(),
       start: null,
       end: null,
       activity: null,
