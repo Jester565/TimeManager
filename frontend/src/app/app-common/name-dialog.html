@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>{{data.label}}</mat-label>
+        <input matInput [(ngModel)]="name">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="null">Cancel</button>
+    <button mat-raised-button color="warn" 
+    [disabled]="name.length == 0"
+    [mat-dialog-close]="name" 
+    cdkFocusInitial>Ok</button>
+</div>

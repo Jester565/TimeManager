@@ -4,6 +4,8 @@ import { staticImplements } from 'src/app/common/static';
 import { parseSecondsInDay, timeStrToSeconds } from 'src/app/common/dateUtils';
 import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 import _ from 'lodash';
+import { MatDialog } from '@angular/material/dialog';
+import { NameDialog } from 'src/app/app-common/app-common.module';
 
 @Component({
   selector: 'app-period',
@@ -60,7 +62,21 @@ export class PeriodComponent implements OnInit, RangeInterface {
     this.dataChange.emit(this._data);
   }
 
-  constructor() { }
+  activities: string[] = null;
+
+  @Output()
+  extrasChange = new EventEmitter<any>();
+
+  @Input()
+  get extras(){
+    return this.activities;
+  }
+  set extras(val) {
+    this.activities = val;
+    this.extrasChange.emit(this.activities);
+  }
+
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -77,5 +93,40 @@ export class PeriodComponent implements OnInit, RangeInterface {
     let newData = _.clone(this.data);
     newData.end = timeStrToSeconds(timeStr);
     return newData;
+  }
+
+  onActivitySelect(val) {
+    console.log("Activity Select: ", val);
+    if (val == "add") {
+      this.addActivity()
+    } else {
+      this.setActivity(val);
+    }
+  } 
+
+  addActivity() {
+    const dialogRef = this.dialog.open
+    (NameDialog, {
+      width: '600px',
+      data: {
+        title: `Add Activity`,
+        label: 'Activity Name'
+      }
+    });
+    
+    dialogRef.afterClosed().subscribe(name => {
+      if (name) {
+        let newActivities = _.clone(this.activities);
+        newActivities.push(name);
+        this.extras = newActivities;
+        this.setActivity(name);
+      }
+    })
+  }
+
+  setActivity(activity) {
+    let newData = _.clone(this.data);
+    newData.activity = activity;
+    this.data = newData;
   }
 }

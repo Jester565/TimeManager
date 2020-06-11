@@ -29,6 +29,7 @@
     <div>
         <app-subschedule-list 
         [subschedules]="schedule.subSchedules" 
-        (subschedulesChange)="onSubschedules($event)"></app-subschedule-list>
+        (subschedulesChange)="onSubschedules($event)"
+        [(activities)]="activities"></app-subschedule-list>
     </div>
 </div>

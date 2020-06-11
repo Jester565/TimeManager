@@ -50,6 +50,17 @@ export class DateRangeComponent implements OnInit, RangeInterface {
     this.dataChange.emit(this._data);
   }
 
+  @Output()
+  extrasChange = new EventEmitter<any>();
+
+  @Input()
+  get extras(){
+    return null;
+  }
+  set extras(val) {
+
+  }
+
   constructor() { }
 
   ngOnInit(): void {

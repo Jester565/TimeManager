@@ -30,6 +30,21 @@ export class RangeListComponent implements OnInit {
     }
   }
 
+  private _extras: any;
+
+  @Output()
+  extrasChange = new EventEmitter<any>();
+
+  @Input()
+  get extras(){
+    return this._extras;
+  }
+
+  set extras(val) {
+    this._extras = val;
+    this.extrasChange.emit(this._extras);
+  }
+
   constructor() { }
 
   ngOnInit(): void {

@@ -3,7 +3,8 @@
         <app-range-wrapper 
         [rangeType]="rangeType" 
         [data]="data" 
-        (dataChange)="onDataChange($event, i)"></app-range-wrapper>
+        (dataChange)="onDataChange($event, i)"
+        [(extras)]="extras"></app-range-wrapper>
         <button mat-icon-button color="warn" (click)="onRemove(i)"><mat-icon>delete</mat-icon></button>
     </div>
     <button mat-mini-fab color="primary" (click)="onAdd()"><mat-icon>add</mat-icon></button>

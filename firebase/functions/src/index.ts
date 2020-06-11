@@ -11,7 +11,7 @@ exports.addUserDoc = functions.auth.user().onCreate(async (authData) => {
         const db = admin.firestore();
 
         let userData = {
-            activityNames: [],
+            activities: [],
             schedules: []
         };
         

@@ -14,6 +14,19 @@ import _ from 'lodash';
   styleUrls: ['./schedule.component.css']
 })
 export class ScheduleComponent implements OnInit {
+  private _activities: string[] = null;
+
+  get activities(): string[] {
+    return this._activities;
+  }
+
+  set activities(val) {
+    if (val != null) {
+      this._activities = val;
+      this._activitiesUpdateSubject.next(val);
+    }
+  }
+
   @Input() scheduleID;
   private _schedule: Schedule = null;
   
@@ -23,10 +36,11 @@ export class ScheduleComponent implements OnInit {
 
   set schedule(val) {
     this._schedule = val;
-    this._firebaseUpdateSubject.next(val);
+    this._scheduleUpdateSubject.next(val);
   }
 
-  private _firebaseUpdateSubject = new Subject();
+  private _scheduleUpdateSubject = new Subject();
+  private _activitiesUpdateSubject = new Subject();
   private _userDoc: AngularFirestoreDocument<any>;
 
   dateRangeType: StaticRangeInterface = DateRangeComponent;
@@ -44,9 +58,13 @@ export class ScheduleComponent implements OnInit {
         if (!this._schedule) {
           this._schedule = user.schedules[this._scheduleI];
         }
+        if (!this.activities) {
+          this._activities = user.activities;
+          console.log("Set activities: ", this._activities);
+        }
       });
     });
-    this._firebaseUpdateSubject.pipe(
+    this._scheduleUpdateSubject.pipe(
       debounceTime(2000),
       distinctUntilChanged(),
       switchMap((schedule: any) => {
@@ -54,6 +72,17 @@ export class ScheduleComponent implements OnInit {
         newSchedules[this._scheduleI] = schedule;
         return this._userDoc.set({
           schedules: newSchedules
+        }, { merge: true });
+      })
+    ).subscribe((res) => {
+      console.log("FirebaseUpdate subject");
+    });
+    this._activitiesUpdateSubject.pipe(
+      debounceTime(2000),
+      distinctUntilChanged(),
+      switchMap((activities: any) => {
+        return this._userDoc.set({
+          activities
         }, { merge: true });
       })
     ).subscribe((res) => {

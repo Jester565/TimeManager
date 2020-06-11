@@ -26,6 +26,24 @@ export class RangeWrapperComponent implements OnInit {
     this.dataChange.emit(this._data);
   }
 
+  private _extras: any;
+
+  @Output()
+  extrasChange = new EventEmitter<any>();
+
+  @Input()
+  get extras(){
+    return this._extras;
+  }
+
+  set extras(val) {
+    this._extras = val;
+    if (this._component) {
+      this._component.extras = this._extras;
+    }
+    this.extrasChange.emit(this._extras);
+  }
+
   private _component: RangeInterface;
   
   @Input() rangeType: StaticRangeInterface;
@@ -43,6 +61,10 @@ export class RangeWrapperComponent implements OnInit {
     this._component.data = this.data;
     this._component.dataChange.subscribe((event) => {
       this.dataChange.emit(event);
+    });
+    this._component.extras = this.extras;
+    this._component.extrasChange.subscribe((event) => {
+      this.extrasChange.emit(event);
     });
   }
 }

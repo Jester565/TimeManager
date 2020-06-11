@@ -24,6 +24,7 @@
     </div>
     <div>
         <app-range-list
+        [(extras)]="activities"
         [rangeType]="periodType"
         [ranges]="subschedule.periods" 
         (rangesChange)="onPeriods($event)"></app-range-list>

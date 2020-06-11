@@ -27,10 +27,20 @@ export class ActivityPeriodComponent implements OnInit, RangeInterface {
   get data(){
     return this._data;
   }
-
   set data(val) {
     this._data = val;
     this.dataChange.emit(this._data);
+  }
+
+  @Output()
+  extrasChange = new EventEmitter<any>();
+
+  @Input()
+  get extras(){
+    return null;
+  }
+  set extras(val) {
+
   }
 
   constructor() { }

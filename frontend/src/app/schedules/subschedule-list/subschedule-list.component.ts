@@ -24,6 +24,22 @@ export class SubscheduleListComponent implements OnInit {
     this.subschedulesChange.emit(this._subschedules);
   }
 
+  private _activities: string[];
+
+  @Output()
+  activitiesChange = new EventEmitter<string[]>();
+
+  @Input()
+  get activities(){
+    return this._activities;
+  }
+
+  set activities(val) {
+    console.log("sub activities: ", val);
+    this._activities = val;
+    this.activitiesChange.emit(this._activities);
+  }
+
   constructor() { }
 
   ngOnInit(): void {
