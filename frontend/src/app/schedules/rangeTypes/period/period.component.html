@@ -1,0 +1,17 @@
+<div fxLayout="row" fxLayoutAlign="start center">
+    <div class="ntimepicker-container">
+        <span class="mat-body">Start Time</span>
+        <ngx-timepicker-field 
+        class="timepicker"
+        [defaultTime]="startTime" 
+        [clockTheme]="clockTheme"
+        (timeChanged)="onStartTime($event)"></ngx-timepicker-field>
+    </div>
+    <div class="ntimepicker-container">
+        <span class="mat-body">End Time (exclusive)</span>
+        <ngx-timepicker-field 
+        class="timepicker"
+        [defaultTime]="endTime" 
+        (timeChanged)="onEndTime($event)"></ngx-timepicker-field>
+    </div>
+</div>

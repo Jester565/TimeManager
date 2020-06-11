@@ -1,1 +1,34 @@
-<p>schedule works!</p>
+<div *ngIf="schedule" class="container">
+    <div class="header" fxLayout="row" fxLayoutAlign="start center">
+        <mat-form-field>
+            <mat-label>Schedule Name</mat-label>
+            <input matInput 
+            [value]="schedule.name" 
+            type="text"
+            (change)="onName($event.target.value)" 
+            (click)="$event.target.select()">
+        </mat-form-field>
+    </div>
+    <div>
+        <div>
+            <span class="mat-headline">Schedule Range</span>
+            <div class="schedule-range-container">
+                <app-date-range 
+                [data]="schedule.range" 
+                (dataChange)="onDateRange($event)"></app-date-range>
+            </div>
+        </div>
+        <div>
+            <span class="mat-headline">Exception Ranges</span>
+            <app-range-list 
+            [rangeType]="dateRangeType"
+            [ranges]="schedule.exceptions" 
+            (rangesChange)="onExceptions($event)"></app-range-list>
+        </div>
+    </div>
+    <div>
+        <app-subschedule-list 
+        [subschedules]="schedule.subSchedules" 
+        (subschedulesChange)="onSubschedules($event)"></app-subschedule-list>
+    </div>
+</div>

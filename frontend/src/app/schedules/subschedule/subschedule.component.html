@@ -1,0 +1,31 @@
+<div>
+    <div class="header" fxLayout="row" fxLayoutAlign="start center">
+        <mat-form-field>
+            <mat-label>Subschedule Name</mat-label>
+            <input matInput [value]="subschedule.name" (change)="onName($event.target.value)" type="text" (click)="$event.target.select()">
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field>
+            <mat-label>Days of Week</mat-label>
+            <mat-select multiple 
+            [value]="subschedule.daysOfWeek"
+            (openedChange)="onDowOpenChange($event)"
+            (selectionChange)="onDaysOfWeek($event.value)">
+                <mat-option [value]="0">Sunday</mat-option>
+                <mat-option [value]="1">Monday</mat-option>
+                <mat-option [value]="2">Tuesday</mat-option>
+                <mat-option [value]="3">Wednesday</mat-option>
+                <mat-option [value]="4">Thursday</mat-option>
+                <mat-option [value]="5">Friday</mat-option>
+                <mat-option [value]="6">Saturday</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div>
+        <app-range-list
+        [rangeType]="periodType"
+        [ranges]="subschedule.periods" 
+        (rangesChange)="onPeriods($event)"></app-range-list>
+    </div>
+</div>

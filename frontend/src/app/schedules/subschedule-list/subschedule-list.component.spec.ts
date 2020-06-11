@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActivityPeriodListComponent } from './activity-period-list.component';
+import { SubscheduleListComponent } from './subschedule-list.component';
 
-describe('ActivityPeriodListComponent', () => {
-  let component: ActivityPeriodListComponent;
-  let fixture: ComponentFixture<ActivityPeriodListComponent>;
+describe('SubscheduleListComponent', () => {
+  let component: SubscheduleListComponent;
+  let fixture: ComponentFixture<SubscheduleListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ActivityPeriodListComponent ]
+      declarations: [ SubscheduleListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ActivityPeriodListComponent);
+    fixture = TestBed.createComponent(SubscheduleListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

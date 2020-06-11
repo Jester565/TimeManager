@@ -1,0 +1,18 @@
+<div>
+    <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+        <span class="mat-headline">Subschedules</span>
+        <button mat-raised-button color="primary" (click)="onAdd()">Add Subschedule</button>
+    </div>
+    <mat-tab-group animationDuration="0ms">
+        <mat-tab *ngFor="let subschedule of subschedules; index as i;trackBy:identify">
+            <ng-template mat-tab-label>
+                {{subschedule.name}} <button mat-icon-button (click)="onDelete(i)"><mat-icon>delete</mat-icon></button>
+            </ng-template>
+            <div class="subschedule-container">
+                <app-subschedule 
+                [subschedule]="subschedule"
+                (subscheduleChange)="onSubschedule($event, i)"></app-subschedule>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

@@ -19,6 +19,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { SchedulesModule } from './schedules/schedules.module';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SchedulesModule } from './schedules/schedules.module';
     DashboardListComponent
   ],
   imports: [
+    NgxMaterialTimepickerModule,
     BrowserModule,
     AppRoutingModule,
     //immediate registration required for progressive web app caching
