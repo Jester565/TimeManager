@@ -13,6 +13,7 @@ export class CounterWidgetComponent implements WidgetInterface, OnInit {
   static TypeID = "counter";
   @Input() dashboardID;
   @Input() widgetID;
+  @Input() filter;
   @Input() widget;
   constructor() { }
 

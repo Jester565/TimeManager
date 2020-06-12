@@ -16,6 +16,11 @@ import { WidgetConfigDirective } from './configs/widget-config.directive';
 import { widgetComponents } from './views/viewTypes/widgetTypes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { ActivityListWidgetComponent } from './views/viewTypes/activity-list-widget/activity-list-widget.component';
+import { ActivityListWidgetConfigComponent } from './configs/configTypes/activity-list-widget-config/activity-list-widget-config.component';
+import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
+import { SchedulesModule } from '../schedules/schedules.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +33,9 @@ import { BrowserModule } from '@angular/platform-browser';
     LineChartWidgetComponent,
     CounterWidgetComponent,
     WidgetDirective,
-    WidgetConfigDirective
+    WidgetConfigDirective,
+    ActivityListWidgetComponent,
+    ActivityListWidgetConfigComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +43,10 @@ import { BrowserModule } from '@angular/platform-browser';
     FlexLayoutModule,
     NgReduxModule,
     BrowserAnimationsModule,
-    BrowserModule
+    BrowserModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    SchedulesModule
   ],
   exports: [
     WidgetComponent,

@@ -16,8 +16,8 @@ import { AppMaterialModule } from './app-material-module/app-material.module';
 import { CommonModule } from '@angular/common';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
 import { SchedulesModule } from './schedules/schedules.module';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
@@ -44,7 +44,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     AngularFireAuthModule,
     AngularFirestoreModule
   ],
-  providers: [],
+  providers: [AngularFirestore, AngularFireAuth],
   bootstrap: [AppComponent],
   entryComponents: []
 })

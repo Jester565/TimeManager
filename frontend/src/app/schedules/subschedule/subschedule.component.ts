@@ -38,7 +38,6 @@ export class SubscheduleComponent implements OnInit {
   }
 
   set activities(val) {
-    console.log("SubSched: ", this._activities);
     this._activities = val;
     this.activitiesChange.emit(this._activities);
   }
@@ -59,7 +58,6 @@ export class SubscheduleComponent implements OnInit {
   }
 
   onDowOpenChange(open) {
-    console.log("open change: ", open);
     if (!open && this._dows) {
       let newSubschedule = _.clone(this.subschedule);
       newSubschedule.daysOfWeek = this._dows;
@@ -69,9 +67,10 @@ export class SubscheduleComponent implements OnInit {
   }
 
   onPeriods(periods) {
-    console.log("PERIODS: ", periods);
-    let newSubschedule = _.clone(this.subschedule);
-    newSubschedule.periods = periods;
-    this.subschedule = newSubschedule;
+    if (periods != null) {
+      let newSubschedule = _.clone(this.subschedule);
+      newSubschedule.periods = periods;
+      this.subschedule = newSubschedule;
+    }
   }
 }

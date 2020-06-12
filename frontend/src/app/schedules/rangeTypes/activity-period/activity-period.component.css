@@ -1,0 +1,18 @@
+:host /deep/ input {
+    background-color: transparent !important;
+}
+
+.timepicker-container {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.activity-container {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.container{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

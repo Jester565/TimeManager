@@ -60,7 +60,6 @@ export class ScheduleComponent implements OnInit {
         }
         if (!this.activities) {
           this._activities = user.activities;
-          console.log("Set activities: ", this._activities);
         }
       });
     });
@@ -75,7 +74,7 @@ export class ScheduleComponent implements OnInit {
         }, { merge: true });
       })
     ).subscribe((res) => {
-      console.log("FirebaseUpdate subject");
+      
     });
     this._activitiesUpdateSubject.pipe(
       debounceTime(2000),
@@ -86,7 +85,7 @@ export class ScheduleComponent implements OnInit {
         }, { merge: true });
       })
     ).subscribe((res) => {
-      console.log("FirebaseUpdate subject");
+      
     });
   }
 

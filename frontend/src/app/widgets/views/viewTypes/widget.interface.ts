@@ -1,8 +1,9 @@
-import { Widget } from 'src/app/redux/dashboards';
+import { Widget, Filter } from 'src/app/redux/dashboards';
 
 export interface WidgetInterface {
     dashboardID: string;
     widgetID: string;
+    filter: Filter;
     widget: Widget;
 }
 

@@ -30,7 +30,6 @@ export class PeriodComponent implements OnInit, RangeInterface {
   get startTime() {
     if (this.data && (this.data.start != null)) {
       let parsed = parseSecondsInDay(this.data.start);
-      console.log("Parsed start time: ", parsed);
       return `${parsed.aHour}:${parsed.minute} ${parsed.a}`;
     }
     return null;
@@ -93,10 +92,8 @@ export class PeriodComponent implements OnInit, RangeInterface {
   }
 
   onStartTime(timeStr: string) {
-    console.log("TIME STR: ", timeStr);
     let newData = _.clone(this.data);
     newData.start = timeStrToSeconds(timeStr);
-    console.log("START: ", newData.start);
     this.data = newData;
   }
 
@@ -107,7 +104,6 @@ export class PeriodComponent implements OnInit, RangeInterface {
   }
 
   onActivitySelect(val) {
-    console.log("Activity Select: ", val);
     if (val == "add") {
       this.addActivity()
     } else {

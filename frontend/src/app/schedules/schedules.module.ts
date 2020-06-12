@@ -36,7 +36,9 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
   ],
   exports: [
     ScheduleListComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    RangeListComponent,
+    ActivityPeriodComponent
   ],
   entryComponents: [ ...(rangeComponents as any[]) ]
 })

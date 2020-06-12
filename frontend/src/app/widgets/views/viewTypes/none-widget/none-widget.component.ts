@@ -13,6 +13,7 @@ export class NoneWidgetComponent implements WidgetInterface, OnInit {
   static TypeID = "none";
   @Input() dashboardID;
   @Input() widgetID;
+  @Input() filter;
   @Input() widget;
   constructor() { }
 

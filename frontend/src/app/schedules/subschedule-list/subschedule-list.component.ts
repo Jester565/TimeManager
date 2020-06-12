@@ -35,7 +35,6 @@ export class SubscheduleListComponent implements OnInit {
   }
 
   set activities(val) {
-    console.log("sub activities: ", val);
     this._activities = val;
     this.activitiesChange.emit(this._activities);
   }

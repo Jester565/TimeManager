@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ComponentRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
-import { Widget, setConfigWidgetID, removeWidget } from '../../../redux/dashboards';
+import { Widget, setConfigWidgetID, removeWidget, Filter } from '../../../redux/dashboards';
 import { NgRedux } from '@angular-redux/store';
 import { AppState } from '../../../redux/root';
 import { MatDialog } from '@angular/material/dialog';
@@ -61,6 +61,19 @@ export class WidgetComponent implements OnInit {
     this._widgetID = val;
     if (this.widgetTypeRef) {
       (<WidgetInterface>this.widgetTypeRef.instance).widgetID = this.widgetID;
+    }
+  }
+
+  private _filter: Filter = null;
+  get filter(): Filter {
+    return this._filter;
+  }
+
+  @Input('filter')
+  set filter(val: Filter) {
+    this._filter = val;
+    if (this.widgetTypeRef) {
+      (<WidgetInterface>this.widgetTypeRef.instance).dashboardID = this.dashboardID;
     }
   }
 

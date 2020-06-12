@@ -1,0 +1,11 @@
+<div class="container" *ngIf="(activityPeriods | async)">
+    <app-range-list
+    [rangeType]="listType"
+    [ranges]="(activityPeriods | async).slice().reverse()"
+    (rangeAdded)="onAdd($event)"
+    (rangeChange)="onUpdate($event)"
+    (rangeDeleted)="onDelete($event)"
+    [extras]="activities">
+
+    </app-range-list>
+</div>

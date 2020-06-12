@@ -13,6 +13,7 @@ export class LineChartWidgetComponent implements WidgetInterface, OnInit {
   static TypeID = "line-chart";
   @Input() dashboardID;
   @Input() widgetID;
+  @Input() filter;
   @Input() widget;
   constructor() { }
 

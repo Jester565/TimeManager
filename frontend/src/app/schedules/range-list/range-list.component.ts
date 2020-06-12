@@ -16,16 +16,23 @@ export class RangeListComponent implements OnInit {
   @Output()
   rangesChange = new EventEmitter<Range[]>();
 
+  @Output()
+  rangeAdded = new EventEmitter<Range>();
+
+  @Output()
+  rangeChange = new EventEmitter<Range>();
+
+  @Output()
+  rangeDeleted = new EventEmitter<Range>();
+
   @Input()
   get ranges(){
     return this._ranges;
   }
 
   set ranges(val) {
-    console.log(this._ranges, val);
     if (!_.isEqual(this._ranges, val)) {
       this._ranges = val;
-      console.log("RANGES: ", this._ranges);
       this.rangesChange.emit(this._ranges);
     }
   }
@@ -54,6 +61,7 @@ export class RangeListComponent implements OnInit {
     let newRanges = _.clone(this.ranges);
     newRanges.push(this.rangeType.GetDefaultData());
     //_.sortBy(newRanges, ['start']);
+    this.rangeAdded.emit(this.rangeType.GetDefaultData());
     this.ranges = newRanges;
   }
 
@@ -61,11 +69,14 @@ export class RangeListComponent implements OnInit {
     let newRanges = _.clone(this.ranges);
     newRanges[i] = data;
     //_.sortBy(newRanges, ['start']);
+    this.rangeChange.emit(data);
     this.ranges = newRanges;
   }
 
   onRemove(i) {
     let newRanges = _.clone(this.ranges);
+    let range = newRanges[i];
+    this.rangeDeleted.emit(range);
     newRanges.splice(i, 1);
     this.ranges = newRanges;
   }

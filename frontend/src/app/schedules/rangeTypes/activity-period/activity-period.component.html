@@ -1,1 +1,40 @@
-<p>activity-period works!</p>
+<form>
+    <div class="container" fxLayout="row" fxLayoutAlign="start end">
+        <div class="date-container">
+            <mat-form-field>
+                <mat-label>Start Date</mat-label>
+                <input matInput [matDatepicker]="picker"
+                [value]="startMoment"
+                (dateChange)="onDate($event.value)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="timepicker-container">
+            <span class="mat-body">Start Time</span>
+            <ngx-timepicker-field 
+            class="timepicker"
+            [defaultTime]="startTime" 
+            [clockTheme]="clockTheme"
+            (timeChanged)="onStartTime($event)"></ngx-timepicker-field>
+        </div>
+        <div class="timepicker-container">
+            <span class="mat-body">End Time (exclusive)</span>
+            <ngx-timepicker-field 
+            class="timepicker"
+            [defaultTime]="endTime" 
+            (timeChanged)="onEndTime($event)"></ngx-timepicker-field>
+        </div>
+        <div class="activity-container">
+            <mat-form-field class="activity-select">
+                <mat-label>Activities</mat-label>
+                <mat-select multiple
+                [value]="activitiesArr"
+                (selectionChange)="setActivities($event.value)">
+                    <mat-option *ngFor="let activity of extras" 
+                    [value]="activity">{{activity}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</form>
