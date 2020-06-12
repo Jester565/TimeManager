@@ -16,7 +16,11 @@ export const timeStrToSeconds = (timeStr) => {
     let a = timeStr.substr(timeStr.indexOf(' ') + 1);
     let hour = aHour;
     if (a.toLowerCase() == 'pm') {
-      hour += 12;
+        if (hour != 12) {
+            hour += 12;
+        }
+    } else if (aHour == 12) {
+        hour = 0;
     }
     return (hour * 60 + minute) * 60;
 }

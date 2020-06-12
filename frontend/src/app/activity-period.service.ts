@@ -78,13 +78,11 @@ export class ActivityPeriodService {
             if (this._mostRecentUnsub) {
               this._mostRecentUnsub();
             }
-            console.log("subin");
             let unsubscribe = user.recentActivityPeriod.onSnapshot((snapshot) => {
-              console.log("on snap: ", snapshot.data(), this._mostRecent);
               if (snapshot.data() != null) {
                 let data = snapshot.data();
                 if (this._mostRecent != null && (data.start == null || data.start < this._mostRecent.start)) {
-                  console.log("find recent");
+
                   this.findSetRecentActivityPeriod();
                 }
                 this._mostRecent = data;
@@ -200,9 +198,7 @@ export class ActivityPeriodService {
       return ref.where("userID", "==", this._userID).orderBy("start", "desc");
     });
     req.get().subscribe((res) => {
-      console.log("got recent activity period: ", res.docs.length);
       if (res.docs.length > 0) {
-        console.log("recemt data: ", res.docs[0].data());
         this._userDoc.set({
           recentActivityPeriod: res.docs[0].ref
         }, { merge: true });

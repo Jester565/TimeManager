@@ -89,17 +89,26 @@ export class ActivityPeriodComponent implements OnInit, RangeInterface {
   onStartTime(timeStr: string) {
     let newData = _.clone(this.data);
     let secondsIntoDay = timeStrToSeconds(timeStr);
-    let dayStart = moment.unix(this.data.start).utc(false).startOf('day').unix();
-    newData.start = dayStart + secondsIntoDay;
+    let start = secondsIntoDay;
+    let dayStart = null;
+    if (this.data.start) {
+      dayStart = moment.unix(this.data.start).utc(false).startOf('day').unix();
+      start = dayStart + secondsIntoDay;
+      console.log("DAY START: ", dayStart, " secondsInto: ", secondsIntoDay, " start: ", start);
+    }
     if (this.data.end != null) {
       let endDayStart = moment.unix(this.data.end).utc(false).startOf('day').unix();
       let endSecondsIntoDay = this.data.end - endDayStart;
-      if (endSecondsIntoDay < secondsIntoDay) {
-        newData.end += (24 * 60 * 60);
-      } else if (endDayStart > dayStart) {
-        newData.end -= (24 * 60 * 60);
+      if (dayStart) {
+        if (endSecondsIntoDay < secondsIntoDay) {
+          newData.end = endSecondsIntoDay + dayStart + (24 * 60 * 60);
+        } else {
+          newData.end = endSecondsIntoDay + dayStart;
+        }
       }
     }
+    newData.start = start;
+    console.log("ONSTART: ", newData.start, newData.end);
     this.data = newData;
   }
 
@@ -114,7 +123,8 @@ export class ActivityPeriodComponent implements OnInit, RangeInterface {
         end += (24 * 60 * 60);
       }
     }
-    this.data.end = end;
+    newData.end = end;
+    console.log("ONEND: ", newData.start, newData.end);
     this.data = newData;
   }
 
@@ -125,14 +135,24 @@ export class ActivityPeriodComponent implements OnInit, RangeInterface {
     if (this.data.start) {
       let prevDayStart = moment.unix(this.data.start).utc(false).startOf('day').unix();
       let startSecondsIntoDay = this.data.start - prevDayStart;
+      console.log("Start hours into day: ", startSecondsIntoDay / (60 * 60));
       newDateRange.start = dayStart + startSecondsIntoDay;
       if (this.data.end) {
-        let endSecondsIntoDay = this.data.end - prevDayStart;
+        let endDayStart = moment.unix(this.data.end).utc(false).startOf('day').unix();
+        let endSecondsIntoDay = this.data.end - endDayStart;
+        if (dayStart) {
+          if (endSecondsIntoDay < startSecondsIntoDay) {
+            newDateRange.end = endSecondsIntoDay + dayStart + (24 * 60 * 60);
+          } else {
+            newDateRange.end = endSecondsIntoDay + dayStart;
+          }
+        }
         newDateRange.end = dayStart + endSecondsIntoDay;
       }
     } else {
       newDateRange.start = dayStart;
     }
+    console.log("ONDATE: ", newDateRange.start, newDateRange.end);
     this.data = newDateRange;
   }
 
