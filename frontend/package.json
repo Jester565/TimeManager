@@ -29,6 +29,7 @@
     "@antv/g2": "^4.0.9",
     "@types/lodash": "^4.14.155",
     "angular-gridster2": "^9.2.0",
+    "angular-resize-event": "^1.2.1",
     "angular-widget-grid": "^0.3.0",
     "firebase": "^7.15.0",
     "immer": "^6.0.9",

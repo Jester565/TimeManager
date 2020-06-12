@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { staticImplements } from '../../../../common/static';
 import { WidgetInterface, StaticWidgetInterface } from '../widget.interface';
 import { ActivityRateService } from 'src/app/activity-rate.service';
 import { Chart } from '@antv/g2';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-line-chart-widget',
@@ -10,9 +11,10 @@ import { Chart } from '@antv/g2';
   styleUrls: ['./line-chart-widget.component.css']
 })
 @staticImplements<StaticWidgetInterface>()
-export class LineChartWidgetComponent implements WidgetInterface, OnInit {
+export class LineChartWidgetComponent implements WidgetInterface, AfterViewInit {
   static Name = "Line Chart";
   static TypeID = "line-chart";
+  public elmID = uuidv4();
   private chart: Chart;
   @Input() dashboardID;
   @Input() widgetID;
@@ -22,9 +24,9 @@ export class LineChartWidgetComponent implements WidgetInterface, OnInit {
     
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     const chart = new Chart({
-      container: 'c1',
+      container: this.elmID,
       autoFit: true,
       height: 500,
     });
