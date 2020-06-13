@@ -102,9 +102,11 @@ export class ScheduleComponent implements OnInit {
   }
 
   onExceptions(exceptions) {
-    let newSchedule = _.clone(this.schedule);
-    newSchedule.exceptions = exceptions;
-    this.schedule = newSchedule;
+    if (exceptions != null) {
+      let newSchedule = _.clone(this.schedule);
+      newSchedule.exceptions = exceptions;
+      this.schedule = newSchedule;
+    }
   }
 
   onSubschedules(subschedules) {

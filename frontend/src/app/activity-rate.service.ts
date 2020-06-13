@@ -65,6 +65,15 @@ export class ActivityRateService {
     return optimizedSchedule;
   }
 
+  _isException(schedule, time) {
+    for (let exception of schedule.exceptions) {
+      if (exception.start != null && exception.end != null && time >= exception.start && time <= exception.end) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   //Start must be the start of a day, end is only accurate up till the end of the day
   _flattenSchedules(schedules, start, end) {
     let now = moment().utc(true).unix();
@@ -76,14 +85,16 @@ export class ActivityRateService {
     for (let schedule of optimizedSchedules) {
       //Go over schedule day by day
       while ((schedule.range.end == null || time < schedule.range.end) && (time < now && time < end)) {
-        let subschedule = _.find(schedule.subSchedules, (subschedule) => { return subschedule.daysOfWeek[dow] });
-        if (subschedule != null) {
-          for (let period of subschedule.periods) {
-            periods.push({
-              start: time + period.start,
-              end: time + period.end,
-              scheduledActivity: period.activity
-            });
+        if (!this._isException(schedule, time)) {
+          let subschedule = _.find(schedule.subSchedules, (subschedule) => { return subschedule.daysOfWeek[dow] });
+          if (subschedule != null) {
+            for (let period of subschedule.periods) {
+              periods.push({
+                start: time + period.start,
+                end: time + period.end,
+                scheduledActivity: period.activity
+              });
+            }
           }
         }
         time += (24 * 60 * 60);

@@ -63,8 +63,8 @@ export class LineChartWidgetComponent implements WidgetInterface, AfterViewInit 
 
     let formatActivityTime = (activityTime) => {
       let mins = activityTime;
-      if (mins >= 60) {
-        return `${Math.floor(mins / 60)}h ${Math.floor(mins) % 60}m`;
+      if (Math.abs(mins) >= 60) {
+        return `${(mins < 0)? '-': ''}${Math.floor(Math.abs(mins) / 60)}h ${Math.floor(Math.abs(mins)) % 60}m`;
       } else {
         return `${Math.floor(mins)}m`
       }
