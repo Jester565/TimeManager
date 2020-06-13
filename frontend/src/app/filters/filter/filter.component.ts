@@ -3,6 +3,7 @@ import { FilterDirective } from '../filter.directive';
 import { filterComponents } from '../filterTypes/filterTypes';
 import { Filter } from '../../redux/dashboards';
 import { FilterInterface, StaticFilterInterface } from '../filterTypes/filter.interface';
+import { Range } from 'src/app/schedules/schedule';
 
 @Component({
   selector: 'app-filter',
@@ -12,6 +13,15 @@ import { FilterInterface, StaticFilterInterface } from '../filterTypes/filter.in
 export class FilterComponent implements OnInit {
   filterType: StaticFilterInterface = null;
   filterTypes: StaticFilterInterface[] = [];
+  static ExecuteFilter(filter): Range {
+    for (let filterType of filterComponents) {
+      if (filterType.TypeID == filter.type) {
+        return filterType.ExecuteFilter(filter.config);
+      }
+    }
+    console.log("No matching filter type, returning unfiltered");
+    return {start: null, end: null};
+  }
   @Input() filter: Filter;
   @ViewChild(FilterDirective, {static: true}) filterHost: FilterDirective;
   constructor(private componentFactoryResolver: ComponentFactoryResolver) { }

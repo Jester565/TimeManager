@@ -75,7 +75,7 @@ export class ActivityRateService {
     let periods = [];
     for (let schedule of optimizedSchedules) {
       //Go over schedule day by day
-      while ((schedule.range.end == null || time < schedule.range.end) && ((end == null && time < now) || time < end)) {
+      while ((schedule.range.end == null || time < schedule.range.end) && (time < now && time < end)) {
         let subschedule = _.find(schedule.subSchedules, (subschedule) => { return subschedule.daysOfWeek[dow] });
         if (subschedule != null) {
           for (let period of subschedule.periods) {

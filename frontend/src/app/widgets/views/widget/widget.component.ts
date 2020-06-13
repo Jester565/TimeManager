@@ -73,7 +73,7 @@ export class WidgetComponent implements OnInit {
   set filter(val: Filter) {
     this._filter = val;
     if (this.widgetTypeRef) {
-      (<WidgetInterface>this.widgetTypeRef.instance).dashboardID = this.dashboardID;
+      (<WidgetInterface>this.widgetTypeRef.instance).filter = this.filter;
     }
   }
 
@@ -117,6 +117,7 @@ export class WidgetComponent implements OnInit {
       (<WidgetInterface>this.widgetTypeRef.instance).dashboardID = this.dashboardID;
       (<WidgetInterface>this.widgetTypeRef.instance).widgetID = this.widgetID;
       (<WidgetInterface>this.widgetTypeRef.instance).widget = this.widget;
+      (<WidgetInterface>this.widgetTypeRef.instance).filter = this.filter;
     }
   }
 

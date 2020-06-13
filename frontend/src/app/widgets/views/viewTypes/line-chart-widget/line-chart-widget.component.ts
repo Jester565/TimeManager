@@ -6,7 +6,8 @@ import { Chart } from '@antv/g2';
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
 import moment from 'moment';
-import { TooltipCrosshairsText, TooltipCrosshairsTextCallback } from '@antv/g2/lib/interface';
+import { Subscription } from 'rxjs';
+import { FilterComponent } from 'src/app/filters/filter/filter.component';
 
 @Component({
   selector: 'app-line-chart-widget',
@@ -19,15 +20,26 @@ export class LineChartWidgetComponent implements WidgetInterface, AfterViewInit 
   static TypeID = "line-chart";
   public elmID = uuidv4();
   private chart: Chart;
+  private rateSubscription: Subscription = null;
+  private _filter: any = null;
   @Input() dashboardID;
   @Input() widgetID;
-  @Input() filter;
-  @Input() widget;
-  constructor(private activityRateService: ActivityRateService) {
-    
+  
+  get filter() {
+    return this._filter;
   }
+  @Input('filter')
+  set filter(val) {
+    if (this._filter == null || !_.isEqual(this._filter, val)) {
+      this._filter = val;
+      if (this.chart != null) {
+        this.subToData();
+      }
+    }
+  }
+  @Input() widget;
 
-  ngAfterViewInit(): void {
+  private _initChart() {
     this.chart = new Chart({
       container: this.elmID,
       height: 500,
@@ -57,8 +69,6 @@ export class LineChartWidgetComponent implements WidgetInterface, AfterViewInit 
         return `${Math.floor(mins)}m`
       }
     }
-    
-    this.chart
 
     this.chart.axis('activityTime', {
       label: {
@@ -72,7 +82,26 @@ export class LineChartWidgetComponent implements WidgetInterface, AfterViewInit 
       .line()
       .position('time*activityTime')
       .color('activity');
-    this.activityRateService.subActivityRates(1591747200, 1591920000).subscribe((data) => {
+  }
+
+  constructor(private activityRateService: ActivityRateService) {
+    
+  }
+
+  ngAfterViewInit() {
+    this._initChart();
+    if (this.filter != null) {
+      this.subToData();
+    }
+  }
+
+  subToData() {
+    if (this.rateSubscription != null) {
+      this.rateSubscription.unsubscribe();
+    }
+    let range = FilterComponent.ExecuteFilter(this.filter);
+    console.log("RANGE: ", range);
+    this.rateSubscription = this.activityRateService.subActivityRates(range.start, range.end).subscribe((data) => {
       if (data != null) {
         data = _.map(data, (point) => {
           return {

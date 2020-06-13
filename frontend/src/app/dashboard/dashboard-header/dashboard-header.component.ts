@@ -34,6 +34,7 @@ export class DashboardHeaderComponent implements OnInit {
     });
     
     dialogRef.afterClosed().subscribe(filter => {
+      console.log("Setting filter: ", filter);
       if (filter != null) {
         this.ngRedux.dispatch(setDashboardFilter(this.dashboard.id, filter));
       }
