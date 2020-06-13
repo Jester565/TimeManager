@@ -3,12 +3,14 @@ import { combineReducers } from 'redux';
 import dashboardsReducer, { Dashboard, epics as dashboardEpics } from './dashboards';
 import { epics as firestoreEpics } from './firestore';
 import { NoneFilterComponent } from '../filters/filterTypes/none-filter/none-filter.component';
+import { debounceTime, throttleTime, distinctUntilChanged } from 'rxjs/operators';
+import { throttle } from 'lodash';
 
 export interface AppState {
     dashboards: Dashboard[];
 }
 
-const loadState = () => {
+export const loadState = () => {
     try {
         const serializedState = localStorage.getItem('state');
         if (serializedState === null) {
@@ -17,6 +19,15 @@ const loadState = () => {
         return JSON.parse(serializedState);
     } catch (err) {
         return undefined;
+    }
+};
+
+export const saveState = (state) => {
+    try {
+        const serializedState = JSON.stringify(state);
+        localStorage.setItem('state', serializedState);
+    } catch {
+        // ignore write errors
     }
 };
 
