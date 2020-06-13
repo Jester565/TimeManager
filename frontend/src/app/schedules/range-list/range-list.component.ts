@@ -10,6 +10,7 @@ import { StaticRangeInterface } from '../rangeTypes/range.interface';
 })
 export class RangeListComponent implements OnInit {
   @Input() rangeType: StaticRangeInterface;
+  @Input() addTop: boolean;
 
   private _ranges : Range[] = null;
 

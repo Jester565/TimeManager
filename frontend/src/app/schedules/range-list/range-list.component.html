@@ -1,4 +1,5 @@
 <div class="container" fxLayout="column" fxLayoutAlign="start center">
+    <button *ngIf="addTop" mat-mini-fab color="primary" (click)="onAdd()"><mat-icon>add</mat-icon></button>
     <div *ngFor="let data of ranges; index as i;trackBy:identify" class="date-range-box" fxLayout="row" fxLayoutAlign="space-between center">
         <app-range-wrapper 
         [rangeType]="rangeType" 
@@ -7,5 +8,5 @@
         [(extras)]="extras"></app-range-wrapper>
         <button mat-icon-button color="warn" (click)="onRemove(i)"><mat-icon>delete</mat-icon></button>
     </div>
-    <button mat-mini-fab color="primary" (click)="onAdd()"><mat-icon>add</mat-icon></button>
+    <button *ngIf="!addTop" mat-mini-fab color="primary" (click)="onAdd()"><mat-icon>add</mat-icon></button>
 </div>

@@ -1,5 +1,6 @@
 <div class="container" *ngIf="(activityPeriods | async)">
     <app-range-list
+    [addTop]="true"
     [rangeType]="listType"
     [ranges]="(activityPeriods | async).slice().reverse()"
     (rangeAdded)="onAdd($event)"

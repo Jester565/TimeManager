@@ -43,7 +43,7 @@ export class LineChartWidgetComponent implements WidgetInterface, AfterViewInit 
     this.chart = new Chart({
       container: this.elmID,
       height: 500,
-      padding: 70
+      padding: 100
     })
     
     this.chart.scale({
