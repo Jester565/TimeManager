@@ -1,2 +1,4 @@
 
-<div [id]="elmID"></div>
+<div>
+    <div [id]="elmID" (resized)="onResized($event)" class="graph"></div>
+</div>

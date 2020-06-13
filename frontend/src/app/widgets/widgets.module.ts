@@ -21,6 +21,7 @@ import { ActivityListWidgetConfigComponent } from './configs/configTypes/activit
 import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
 import { SchedulesModule } from '../schedules/schedules.module';
+import { AngularResizedEventModule } from 'angular-resize-event';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { SchedulesModule } from '../schedules/schedules.module';
     BrowserModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
-    SchedulesModule
+    SchedulesModule,
+    AngularResizedEventModule
   ],
   exports: [
     WidgetComponent,

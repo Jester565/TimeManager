@@ -4,6 +4,9 @@ import { WidgetInterface, StaticWidgetInterface } from '../widget.interface';
 import { ActivityRateService } from 'src/app/activity-rate.service';
 import { Chart } from '@antv/g2';
 import { v4 as uuidv4 } from 'uuid';
+import _ from 'lodash';
+import moment from 'moment';
+import { TooltipCrosshairsText, TooltipCrosshairsTextCallback } from '@antv/g2/lib/interface';
 
 @Component({
   selector: 'app-line-chart-widget',
@@ -25,46 +28,67 @@ export class LineChartWidgetComponent implements WidgetInterface, AfterViewInit 
   }
 
   ngAfterViewInit(): void {
-    const chart = new Chart({
+    this.chart = new Chart({
       container: this.elmID,
-      autoFit: true,
       height: 500,
-    });
+      padding: 70
+    })
     
-    chart.scale({
+    this.chart.scale({
+      time: {
+        type: 'timeCat',
+        mask: "MM-DD-YYYY hh:mm A"
+      },
       activityTime: {
         nice: true,
-      },
+      }
     });
     
-    chart.tooltip({
+    this.chart.tooltip({
       showCrosshairs: true,
-      shared: true,
+      shared: true
     });
+
+    let formatActivityTime = (activityTime) => {
+      let mins = activityTime;
+      if (mins >= 60) {
+        return `${Math.floor(mins / 60)}h ${Math.floor(mins) % 60}m`;
+      } else {
+        return `${Math.floor(mins)}m`
+      }
+    }
     
-    chart.axis('activityTime', {
+    this.chart
+
+    this.chart.axis('activityTime', {
       label: {
         formatter: (val: any) => {
-          let mins = val / 60;
-          if (mins >= 60) {
-            return `${Math.floor(mins / 60)}h ${Math.floor(mins)}m`;
-          } else {
-            return `${Math.floor(mins)}m`
-          }
+          return formatActivityTime(val);
         },
       },
     });
     
-    chart
+    this.chart
       .line()
       .position('time*activityTime')
       .color('activity');
     this.activityRateService.subActivityRates(1591747200, 1591920000).subscribe((data) => {
       if (data != null) {
+        data = _.map(data, (point) => {
+          return {
+            ...point,
+            time: moment.unix(point.time).utc(false).local(true).utc(false).valueOf(),
+            activityTime: Math.trunc(point.activityTime / 60.0)
+          }
+        })
         console.log("Activity rate sub result: ", data);
-        chart.data(data);
-        chart.render();
+        this.chart.data(data);
+        this.chart.render();
       }
     })
+  }
+
+  onResized(event) {
+    this.chart.forceFit();
   }
 }
