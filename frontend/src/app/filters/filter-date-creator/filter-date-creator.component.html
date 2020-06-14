@@ -9,6 +9,9 @@
             <mat-option value="days-ago">
                 Days Ago
             </mat-option>
+            <mat-option value="dow">
+                Day of Week
+            </mat-option>
             <mat-option value="today">
                 Today
             </mat-option>
@@ -34,6 +37,38 @@
                 min="0"
                 [(ngModel)]="config.daysAgo">
                 <span matSuffix>days</span>
+            </mat-form-field>
+        </div>
+        <div *ngSwitchCase="'dow'">
+            <mat-form-field>
+                <mat-label>Day of Week</mat-label>
+                <mat-select [(ngModel)]="config.dow">
+                    <mat-option value="0">
+                        Sunday
+                    </mat-option>
+                    <mat-option value="1">
+                        Monday
+                    </mat-option>
+                    <mat-option value="2">
+                        Tuesday
+                    </mat-option>
+                    <mat-option value="3">
+                        Wednesday
+                    </mat-option>
+                    <mat-option value="4">
+                        Thursday
+                    </mat-option>
+                    <mat-option value="5">
+                        Friday
+                    </mat-option>
+                    <mat-option value="6">
+                        Saturday
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Num Weeks Ago</mat-label>
+                <input matInput type="number" placeholder="0" min="0" [(ngModel)]="config.weeksAgo">
             </mat-form-field>
         </div>
         <div *ngSwitchCase="'today'">

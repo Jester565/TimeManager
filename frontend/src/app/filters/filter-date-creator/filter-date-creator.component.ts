@@ -1,10 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as moment from 'moment-timezone';
+import { ConfigurableFocusTrapConfig } from '@angular/cdk/a11y/focus-trap/configurable-focus-trap-config';
 
 export interface FilterDate {
   method: string,
   date: number,
-  daysAgo: number
+  daysAgo: number,
+  dow: 1,
+  weeksAgo: 0
 }
 
 @Component({
@@ -17,7 +20,18 @@ export class FilterDateCreatorComponent implements OnInit {
     if (config.method == "today") {
       return moment().utc(true);
     } else if (config.method == "daysAgo") {
-      return moment().utc(true).subtract(config.daysAgo, 'days');
+      return (config.daysAgo)? moment().utc(true).subtract(config.daysAgo, 'days'): moment().utc(true);
+    } else if (config.method == "dow") {
+      let dow = moment().utc(true).day();
+      let dowDiff = 0;
+      let configDow = (config.dow)? config.dow: 0;
+      if (configDow <= dow) {
+        dowDiff = (dow - configDow);
+      } else {
+        dowDiff = dow + (6 - configDow);
+      }
+      let dayDiff = ((config.weeksAgo)? config.weeksAgo: 0) * 7 + dowDiff;
+      return moment().utc(true).subtract(dayDiff, 'days');
     } else {
       return (config.date)? moment.unix(config.date).utc(false): null
     }
