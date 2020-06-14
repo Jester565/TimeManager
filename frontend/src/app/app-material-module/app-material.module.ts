@@ -18,6 +18,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapter";
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatDividerModule} from '@angular/material/divider';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
@@ -40,7 +41,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     MatButtonToggleModule,
     MatSelectModule,
     MatTabsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDividerModule
   ],
   exports: [
     MatButtonModule,
@@ -58,7 +60,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     MatButtonToggleModule,
     MatSelectModule,
     MatTabsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDividerModule
   ],
   providers: [
     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {strict: true}}

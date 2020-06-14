@@ -9,6 +9,7 @@ import { ConfirmCancelDialog } from '../app-common/app-common.module';
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
 import { NoneFilterComponent } from '../filters/filterTypes/none-filter/none-filter.component';
+import { first } from 'rxjs/operators'
 
 @Component({
   selector: 'app-dashboard-list',
@@ -23,6 +24,21 @@ export class DashboardListComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.dashboards.pipe(first()).subscribe((dashboards) => {
+      if (dashboards == null) {
+        return;
+      }
+      let dashboardSelected = false;
+      for (let dashboard of dashboards) {
+        if (dashboard.selected) {
+          dashboardSelected = true;
+          break;
+        }
+      }
+      if (!dashboardSelected && dashboards.length > 0) {
+        this.ngRedux.dispatch(selectDashboard(dashboards[0].id));
+      }
+    })
   }
 
   drop(event: CdkDragDrop<Dashboard[]>) {

@@ -45,7 +45,7 @@ export class DashboardHeaderComponent implements OnInit {
     let widgetsBottom = findWidgetsBottom(Object.values(this.dashboard.widgets));
     let widget: Widget = {
       type: NoneWidgetConfigComponent.TypeID,
-      config: null,
+      config: {},
       position: {
         top: null,
         left: null,

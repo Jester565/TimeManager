@@ -25,6 +25,8 @@ import { AngularResizedEventModule } from 'angular-resize-event';
 import { ClockerWidgetComponent } from './views/viewTypes/clocker-widget/clocker-widget.component';
 import { ClockerWidgetConfigComponent } from './configs/configTypes/clocker-widget-config/clocker-widget-config.component';
 import { FormsModule } from '@angular/forms';
+import { TimerWidgetComponent } from './views/viewTypes/timer-widget/timer-widget.component';
+import { TimerWidgetConfigComponent } from './configs/configTypes/timer-widget-config/timer-widget-config.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { FormsModule } from '@angular/forms';
     ActivityListWidgetComponent,
     ActivityListWidgetConfigComponent,
     ClockerWidgetComponent,
-    ClockerWidgetConfigComponent
+    ClockerWidgetConfigComponent,
+    TimerWidgetComponent,
+    TimerWidgetConfigComponent
   ],
   imports: [
     CommonModule,

@@ -38,13 +38,18 @@
             </div>
             <mat-form-field class="example-full-width">
                 <mat-label>Note</mat-label>
-                <textarea class="note" matInput placeholder="Write down what happened during this time..." [disabled]="!ap.end" [(ngModel)]="note">
+                <textarea class="note" matInput placeholder="Write down what happened during this time..." [disabled]="changingActivityPeriod" [(ngModel)]="note">
 
                 </textarea>
             </mat-form-field>
             <button mat-raised-button color="primary" (click)="onClock()" [disabled]="changingActivityPeriod || (ap.end && (widget.config.activities == null || widget.config.activities.length == 0))">
                 {{(!ap.end)? 'Stop': 'Start'}}
             </button>
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+            <div><span class="mat-body-1">Last Change At: </span><span class="mat-body-2">{{(lastChange | async)}}</span></div>
+            <div><span class="mat-body-1">Since Last Change: </span><span class="mat-body-2">{{(nowChangeDiff | async)}}</span></div>
         </div>
     </div>
 </div>
