@@ -111,7 +111,6 @@ export class ActivityPeriodComponent implements OnInit, RangeInterface {
     if (this.data.start) {
       dayStart = moment.unix(this.data.start).utc(false).startOf('day').unix();
       start = dayStart + secondsIntoDay;
-      console.log("DAY START: ", dayStart, " secondsInto: ", secondsIntoDay, " start: ", start);
     }
     if (this.data.end != null) {
       let endDayStart = moment.unix(this.data.end).utc(false).startOf('day').unix();

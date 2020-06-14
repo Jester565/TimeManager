@@ -1,5 +1,5 @@
-<form>
-    <div class="container" fxLayout="row" fxLayoutAlign="start end" (focusout)="onFocus()" (focusout)="onUnfocus()">
+<form class="container">
+    <div class="row-container" fxLayout="row" fxLayoutAlign="start end" (focusin)="onFocus()" (focusout)="onUnfocus()">
         <div class="date-container">
             <mat-form-field>
                 <mat-label>Start Date</mat-label>
@@ -38,4 +38,8 @@
             </mat-form-field>
         </div>
     </div>
+    <mat-form-field *ngIf="data.note && data.note.length > 0" class="note">
+        <mat-label>Note</mat-label>
+        <textarea matInput name="note" [(ngModel)]="data.note"></textarea>
+    </mat-form-field>
 </form>

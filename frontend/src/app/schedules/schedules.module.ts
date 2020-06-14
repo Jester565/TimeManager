@@ -19,6 +19,7 @@ import { RangeDirective } from './range.directive';
 import { BrowserModule } from '@angular/platform-browser';
 import { PeriodComponent } from './rangeTypes/period/period.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     FlexLayoutModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
-    DragDropModule
+    DragDropModule,
+    FormsModule
   ],
   exports: [
     ScheduleListComponent,
