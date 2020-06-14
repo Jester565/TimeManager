@@ -6,3 +6,8 @@
 .item-buttons {
     background: black;
 }
+
+.scrollable {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
