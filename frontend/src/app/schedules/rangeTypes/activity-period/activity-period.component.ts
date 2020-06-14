@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { staticImplements } from 'src/app/common/static';
 import { StaticRangeInterface, RangeInterface } from '../range.interface';
 import { v4 as uuidv4 } from 'uuid';
 import { MatDialog } from '@angular/material/dialog';
 import moment from 'moment';
 import { parseSecondsInDay, timeStrToSeconds } from 'src/app/common/dateUtils';
-import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
+import { NgxMaterialTimepickerTheme, NgxTimepickerFieldComponent } from 'ngx-material-timepicker';
 import _ from 'lodash';
 import { NameDialog } from 'src/app/app-common/name-dialog';
 
@@ -16,6 +16,11 @@ import { NameDialog } from 'src/app/app-common/name-dialog';
 })
 @staticImplements<StaticRangeInterface>()
 export class ActivityPeriodComponent implements OnInit, RangeInterface {
+  @ViewChild('startComponent') private startComponent: NgxTimepickerFieldComponent;
+  @ViewChild('endComponent') private endComponent: NgxTimepickerFieldComponent;
+
+  private focused: boolean = false;
+  
   static GetDefaultData(): any {
     return {
       id: uuidv4(),
@@ -25,9 +30,7 @@ export class ActivityPeriodComponent implements OnInit, RangeInterface {
       note: null
     }
   }
-
-  initStartTime: string;
-  initEndTime: string;
+  
 
   get activitiesArr() {
     return Object.keys(this._data.activities);
@@ -73,9 +76,23 @@ export class ActivityPeriodComponent implements OnInit, RangeInterface {
   }
 
   set data(val) {
-    let firstSet = (this._data == null && val);
+    let prevData = this._data;
     this._data = val;
-    this.dataChange.emit(this._data);
+    if (!this.focused) { 
+      this.dataChange.emit(this.data);
+    }
+    if (val != null && (prevData == null || (prevData.end == null && prevData.end != val.end))) {
+      let et = this.endTime;
+      if (et && this.endComponent) {
+        this.endComponent.writeValue(et);
+      }
+    }
+    if (val != null && (prevData == null || (prevData.start == null && prevData.start != val.start))) {
+      let st = this.startTime;
+      if (st && this.startComponent) {
+        this.startComponent.writeValue(st);
+      }
+    }
   }
 
   @Output() extrasChange = new EventEmitter<any>();
@@ -163,5 +180,14 @@ export class ActivityPeriodComponent implements OnInit, RangeInterface {
       newData.activities[activity] = true;
     }
     this.data = newData;
+  }
+
+  onFocus() {
+    this.focused = true;
+  }
+
+  onUnfocus() {
+    this.dataChange.emit(this.data);
+    this.focused = false;
   }
 }

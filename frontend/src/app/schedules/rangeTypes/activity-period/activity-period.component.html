@@ -1,5 +1,5 @@
 <form>
-    <div class="container" fxLayout="row" fxLayoutAlign="start end">
+    <div class="container" fxLayout="row" fxLayoutAlign="start end" (focusout)="onFocus()" (focusout)="onUnfocus()">
         <div class="date-container">
             <mat-form-field>
                 <mat-label>Start Date</mat-label>
@@ -12,7 +12,7 @@
         </div>
         <div class="timepicker-container">
             <span class="mat-body">Start Time</span>
-            <ngx-timepicker-field 
+            <ngx-timepicker-field #startComponent
             class="timepicker"
             [defaultTime]="startTime" 
             [clockTheme]="clockTheme"
@@ -20,7 +20,7 @@
         </div>
         <div class="timepicker-container">
             <span class="mat-body">End Time (exclusive)</span>
-            <ngx-timepicker-field 
+            <ngx-timepicker-field #endComponent
             class="timepicker"
             [defaultTime]="endTime" 
             (timeChanged)="onEndTime($event)"></ngx-timepicker-field>
