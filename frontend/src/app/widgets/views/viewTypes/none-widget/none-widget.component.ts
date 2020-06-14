@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { staticImplements } from '../../../../common/static';
 import { WidgetInterface, StaticWidgetInterface } from '../widget.interface';
+import { Widget } from 'src/app/redux/dashboards';
 
 @Component({
   selector: 'app-none-widget',
@@ -15,6 +16,7 @@ export class NoneWidgetComponent implements WidgetInterface, OnInit {
   @Input() widgetID;
   @Input() filter;
   @Input() widget;
+  @Output() widgetChange = new EventEmitter<Widget>();
   constructor() { }
 
   ngOnInit(): void {

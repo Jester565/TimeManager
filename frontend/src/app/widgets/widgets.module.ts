@@ -22,6 +22,9 @@ import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
 import { SchedulesModule } from '../schedules/schedules.module';
 import { AngularResizedEventModule } from 'angular-resize-event';
+import { ClockerWidgetComponent } from './views/viewTypes/clocker-widget/clocker-widget.component';
+import { ClockerWidgetConfigComponent } from './configs/configTypes/clocker-widget-config/clocker-widget-config.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,9 @@ import { AngularResizedEventModule } from 'angular-resize-event';
     WidgetDirective,
     WidgetConfigDirective,
     ActivityListWidgetComponent,
-    ActivityListWidgetConfigComponent
+    ActivityListWidgetConfigComponent,
+    ClockerWidgetComponent,
+    ClockerWidgetConfigComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +53,8 @@ import { AngularResizedEventModule } from 'angular-resize-event';
     AngularFireAuthModule,
     AngularFirestoreModule,
     SchedulesModule,
-    AngularResizedEventModule
+    AngularResizedEventModule,
+    FormsModule
   ],
   exports: [
     WidgetComponent,

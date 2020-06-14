@@ -32,10 +32,11 @@ export class RangeListComponent implements OnInit {
   }
 
   set ranges(val) {
-    if (!_.isEqual(this._ranges, val)) {
-      this._ranges = val;
-      this.rangesChange.emit(this._ranges);
-    }
+    console.log("RANGES UPDATED: ", val);
+    //if (!_.isEqual(this._ranges, val)) {
+    this._ranges = val;
+    this.rangesChange.emit(this._ranges);
+    //}
   }
 
   private _extras: any;

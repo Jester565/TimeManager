@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ComponentRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
-import { Widget, setConfigWidgetID, removeWidget, Filter } from '../../../redux/dashboards';
+import { Component, OnInit, Input, ComponentRef, ComponentFactoryResolver, ViewChild, OnDestroy } from '@angular/core';
+import { Widget, setConfigWidgetID, removeWidget, Filter, updateWidget } from '../../../redux/dashboards';
 import { NgRedux } from '@angular-redux/store';
 import { AppState } from '../../../redux/root';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,6 +8,8 @@ import { WidgetInterface, StaticWidgetInterface } from '../viewTypes/widget.inte
 import { WidgetDirective } from '../widget.directive';
 import { widgetComponents } from '../viewTypes/widgetTypes';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { ThrowStmt } from '@angular/compiler';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-widget',
@@ -33,8 +35,9 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     ]),
   ],
 })
-export class WidgetComponent implements OnInit {
+export class WidgetComponent implements OnInit, OnDestroy {
   private widgetTypeRef: ComponentRef<any> = null;
+  private _widgetSubscription: Subscription = null;
 
   @Input() editting: boolean = false;
 
@@ -101,6 +104,11 @@ export class WidgetComponent implements OnInit {
   constructor(private ngRedux: NgRedux<AppState>,
     private componentFactoryResolver: ComponentFactoryResolver,
     public dialog: MatDialog) { }
+  ngOnDestroy(): void {
+    if (this._widgetSubscription) {
+      this._widgetSubscription.unsubscribe();
+    }
+  }
 
   ngOnInit(): void {
     
@@ -118,6 +126,13 @@ export class WidgetComponent implements OnInit {
       (<WidgetInterface>this.widgetTypeRef.instance).widgetID = this.widgetID;
       (<WidgetInterface>this.widgetTypeRef.instance).widget = this.widget;
       (<WidgetInterface>this.widgetTypeRef.instance).filter = this.filter;
+      this._widgetSubscription = (<WidgetInterface>this.widgetTypeRef.instance).widgetChange.subscribe(this.onWidgetChange.bind(this));
+    }
+  }
+
+  onWidgetChange(widget) {
+    if (widget != null) {
+      this.ngRedux.dispatch(updateWidget(this.dashboardID, this.widgetID, widget));
     }
   }
 

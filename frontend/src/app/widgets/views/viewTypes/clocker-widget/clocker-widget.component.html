@@ -1,0 +1,50 @@
+<div class="container" *ngIf="activityPeriod | async as ap">
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <div fxLayout="column" fxLayoutAlign="space-around right" class="inner-container">
+            <span class="mat-headline title">{{ (!ap.end)? 'Stop': 'Start' }}</span>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-form-field class="activity-select">
+                    <mat-label>Activities</mat-label>
+                    <mat-select multiple
+                    [disabled]="!ap.end"
+                    [value]="(ap.end)? widget.config.activities: (activityPeriodActivities | async)"
+                    (selectionChange)="onActivities($event.value)">
+                        <mat-option *ngFor="let activity of activities" 
+                        [value]="activity">{{activity}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-form-field class="activity-select">
+                    <mat-select
+                    [value]="changeMinsAgo"
+                    (selectionChange)="changeMinsAgo = $event.value">
+                        <mat-option [value]="0">Now</mat-option>
+                        <mat-option [value]="1">1 Minute Ago</mat-option>
+                        <mat-option [value]="2">2 Minutes Ago</mat-option>
+                        <mat-option [value]="3">3 Minutes Ago</mat-option>
+                        <mat-option [value]="5">5 Minutes Ago</mat-option>
+                        <mat-option [value]="7">7 Minutes Ago</mat-option>
+                        <mat-option [value]="10">10 Minutes Ago</mat-option>
+                        <mat-option [value]="15">15 Minutes Ago</mat-option>
+                        <mat-option [value]="20">20 Minutes Ago</mat-option>
+                        <mat-option [value]="25">25 Minutes Ago</mat-option>
+                        <mat-option [value]="30">30 Minutes Ago</mat-option>
+                        <mat-option [value]="40">40 Minutes Ago</mat-option>
+                        <mat-option [value]="50">50 Minutes Ago</mat-option>
+                        <mat-option [value]="60">1 Hour Ago</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <mat-form-field class="example-full-width">
+                <mat-label>Note</mat-label>
+                <textarea class="note" matInput placeholder="Write down what happened during this time..." [disabled]="!ap.end" [(ngModel)]="note">
+
+                </textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="onClock()" [disabled]="changingActivityPeriod || (ap.end && (widget.config.activities == null || widget.config.activities.length == 0))">
+                {{(!ap.end)? 'Stop': 'Start'}}
+            </button>
+        </div>
+    </div>
+</div>

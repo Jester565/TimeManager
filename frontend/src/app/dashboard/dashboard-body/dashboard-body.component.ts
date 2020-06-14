@@ -75,6 +75,10 @@ export class DashboardBodyComponent implements OnInit {
 
   constructor(private ngRedux: NgRedux<AppState>, private cdrf: ChangeDetectorRef) { }
 
+  identity(dashboard) {
+    return dashboard.id;
+  }
+
   ngOnInit(): void {
     this.options = {
       itemChangeCallback: (item: GridsterItem, itemComponent) => {

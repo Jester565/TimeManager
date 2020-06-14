@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { staticImplements } from '../../../../common/static';
 import { WidgetInterface, StaticWidgetInterface } from '../widget.interface';
 import { ActivityRateService } from 'src/app/activity-rate.service';
@@ -8,6 +8,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import { Subscription } from 'rxjs';
 import { FilterComponent } from 'src/app/filters/filter/filter.component';
+import { Widget } from 'src/app/redux/dashboards';
 
 @Component({
   selector: 'app-line-chart-widget',
@@ -24,6 +25,7 @@ export class LineChartWidgetComponent implements WidgetInterface, AfterViewInit 
   private _filter: any = null;
   @Input() dashboardID;
   @Input() widgetID;
+  @Output() widgetChange = new EventEmitter<Widget>();
   
   get filter() {
     return this._filter;

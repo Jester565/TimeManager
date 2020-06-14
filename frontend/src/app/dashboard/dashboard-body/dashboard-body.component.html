@@ -1,6 +1,6 @@
 <!-- TODO test adding trackby to ngfor over widgets -->
 <gridster [options]="options" class="gridster">
-    <gridster-item [item]="displayWidget.item" *ngFor="let displayWidget of widgets">
+    <gridster-item [item]="displayWidget.item" *ngFor="let displayWidget of widgets; trackBy identity">
         <app-widget 
         [dashboardID]="dashboard.id" 
         [editting]="dashboard.editting"

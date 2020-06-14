@@ -82,10 +82,10 @@ export class ActivityPeriodService {
               if (snapshot.data() != null) {
                 let data = snapshot.data();
                 if (this._mostRecent != null && (data.start == null || data.start < this._mostRecent.start)) {
-
                   this.findSetRecentActivityPeriod();
                 }
                 this._mostRecent = data;
+                this.mostRecentSubject.next(data);
                 this._localSetActivityPeriod(data);
                 //unsubscribe from itself if ended and is no longer the most recent subscription
                 if (this._mostRecent.end && this._mostRecentUnsub != unsubscribe) {
@@ -107,6 +107,7 @@ export class ActivityPeriodService {
     if (activityPeriod != null) {
       if (!_.isEqual(activityPeriod, newActivityPeriod)) {
         _.merge(activityPeriod, newActivityPeriod);
+        this._activityPeriods[newActivityPeriod.id] = _.cloneDeep(activityPeriod);
         this._updateSubscriptions();
       }
     } else {
@@ -152,6 +153,7 @@ export class ActivityPeriodService {
   private _updateSubscriptions() {
     let sortedActivityPeriods = _.sortBy(Object.values(this._activityPeriods), ['start']);
     for (let sub of this._subscriptions) {
+      console.log("SUB UPDATE");
       if (sub.ready) {
         let arr = [];
         for (let activityPeriod of sortedActivityPeriods) {
@@ -180,7 +182,7 @@ export class ActivityPeriodService {
     this._subRecent();
   }
 
-  public mostRecentSubject: Subject<ActivityPeriodData> = new Subject<ActivityPeriodData>();
+  public mostRecentSubject: BehaviorSubject<ActivityPeriodData> = new BehaviorSubject<ActivityPeriodData>(null);
   
   public setActivityPeriod(activityPeriod: ActivityPeriodData) {
     this._remoteSetActivityPeriod(activityPeriod);
