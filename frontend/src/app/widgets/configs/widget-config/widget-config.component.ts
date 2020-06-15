@@ -88,4 +88,42 @@ export class WidgetConfigComponent implements OnInit {
     (<WidgetConfigInterface>this.widgetConfigTypeRef.instance).widgetID = this.widgetID;
     (<WidgetConfigInterface>this.widgetConfigTypeRef.instance).widget = this.widget;
   }
+
+  onWidgetChange(widget) {
+    if (widget != null) {
+      this.ngRedux.dispatch(updateWidget(this.dashboardID, this.widgetID, widget));
+    }
+  }
+
+  onLeft(left) {
+    if (left != null && left.length > 0) {
+      let newWidget = _.cloneDeep(this.widget);
+      newWidget.position.left = parseInt(left);
+      this.ngRedux.dispatch(updateWidget(this.dashboardID, this.widgetID, newWidget));
+    }
+  }
+
+  onTop(top) {
+    if (top != null && top.length > 0) {
+      let newWidget = _.cloneDeep(this.widget);
+      newWidget.position.top = parseInt(top);
+      this.ngRedux.dispatch(updateWidget(this.dashboardID, this.widgetID, newWidget));
+    }
+  }
+
+  onWidth(width) {
+    if (width != null && width.length > 0) {
+      let newWidget = _.cloneDeep(this.widget);
+      newWidget.position.width = parseInt(width);
+      this.ngRedux.dispatch(updateWidget(this.dashboardID, this.widgetID, newWidget));
+    }
+  }
+
+  onHeight(height) {
+    if (height != null && height.length > 0) {
+      let newWidget = _.cloneDeep(this.widget);
+      newWidget.position.height = parseInt(height);
+      this.ngRedux.dispatch(updateWidget(this.dashboardID, this.widgetID, newWidget));
+    }
+  }
 }

@@ -9,7 +9,26 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-    <div>
+    <div fxLayout="column">
+        <mat-form-field>
+            <mat-label>X</mat-label>
+            <input matInput type="number" [value]="widget.position.left" (change)="onLeft($event.target.value)">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Y</mat-label>
+            <input matInput type="number" [value]="widget.position.top" (change)="onTop($event.target.value)">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Width</mat-label>
+            <input matInput type="number" [value]="widget.position.width" (change)="onWidth($event.target.value)">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Height</mat-label>
+            <input matInput type="number" [value]="widget.position.height" (change)="onHeight($event.target.value)">
+        </mat-form-field>
+        <br />
+        <mat-divider></mat-divider>
+        <br />
         <ng-template app-widget-config-directive></ng-template>
     </div>
 </div>

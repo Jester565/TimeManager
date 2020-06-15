@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, AfterContentInit } from '@angular/core';
+import { Component, OnInit, Input, AfterContentInit, Output, EventEmitter } from '@angular/core';
 import { staticImplements } from 'src/app/common/static';
 import { StaticWidgetConfigInterface, WidgetConfigInterface } from '../widget-config.interface';
+import { Widget } from 'src/app/redux/dashboards';
 
 @Component({
   selector: 'app-timer-widget-config',
@@ -14,6 +15,7 @@ export class TimerWidgetConfigComponent implements  WidgetConfigInterface, OnIni
   @Input() dashboardID;
   @Input() widgetID;
   @Input() widget;
+  @Output() widgetChange = new EventEmitter<Widget>();
   
   constructor() { }
 

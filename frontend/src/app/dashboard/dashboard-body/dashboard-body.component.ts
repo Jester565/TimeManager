@@ -22,6 +22,7 @@ export class DashboardBodyComponent implements OnInit {
   widgets: DisplayWidget[] = [];
 
   private updateDisplayWidgets = (widgets) => {
+    let enabledEditting = false;
     let newDisplayWidgets = [];
     for (let widgetID in widgets) {
       let widget = widgets[widgetID];
@@ -33,11 +34,16 @@ export class DashboardBodyComponent implements OnInit {
       };
       let displayWidget: DisplayWidget = _.find(this.widgets, { id: widgetID });
       if (displayWidget != null) {
+        if (!enabledEditting) {
+          this.updateEditting(true);
+          enabledEditting = true;
+        }
         if (!_.isMatch(displayWidget.item, convertedPos)) {
           Object.assign(displayWidget.item, convertedPos);
+          displayWidget.item = _.clone(displayWidget.item);
         }
         displayWidget.widget = widget;
-        newDisplayWidgets.push(displayWidget);
+        newDisplayWidgets.push(_.clone(displayWidget));
       } else {
         newDisplayWidgets.push({
           id: widgetID,
@@ -46,6 +52,11 @@ export class DashboardBodyComponent implements OnInit {
         });
       }
     }
+    if (enabledEditting) {
+      this.updateEditting(false);
+      this.updateEditting(this.dashboard.editting);
+    }
+    console.log("NEW DISPLAY: ", newDisplayWidgets);
     this.widgets = newDisplayWidgets;
   }
 
@@ -68,6 +79,7 @@ export class DashboardBodyComponent implements OnInit {
 
   @Input('dashboard')
   set dashboard(val: Dashboard) {
+    console.log("DASH BODY");
     this._dashboard = val;
     this.updateDisplayWidgets(val.widgets);
     this.updateEditting(val.editting);

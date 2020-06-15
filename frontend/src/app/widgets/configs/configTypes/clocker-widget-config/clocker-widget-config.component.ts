@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { WidgetConfigInterface, StaticWidgetConfigInterface } from '../widget-config.interface';
 import { staticImplements } from 'src/app/common/static';
+import { Widget } from 'src/app/redux/dashboards';
 
 @Component({
   selector: 'app-clocker-widget-config',
@@ -14,6 +15,8 @@ export class ClockerWidgetConfigComponent implements WidgetConfigInterface, OnIn
   @Input() dashboardID;
   @Input() widgetID;
   @Input() widget;
+  @Output() widgetChange = new EventEmitter<Widget>();
+  
   constructor() { }
 
   ngOnInit(): void {
